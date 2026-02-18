@@ -1,0 +1,47 @@
+import { defineConfig } from '@meteorjs/rspack';
+import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
+
+/**
+ * Rspack configuration for Meteor projects.
+ *
+ * Provides typed flags on the `Meteor` object, such as:
+ * - `Meteor.isClient` / `Meteor.isServer`
+ * - `Meteor.isDevelopment` / `Meteor.isProduction`
+ * - …and other flags available
+ *
+ * Use these flags to adjust your build settings based on environment.
+ */
+export default defineConfig(Meteor => {
+  return {
+    // Solo type checking en producción
+    plugins: Meteor.isProduction ? [new TsCheckerRspackPlugin()] : [],
+
+    // Configuración de módulos
+    module: {
+      rules: [
+        {
+          test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
+          type: 'asset',
+          parser: {
+            dataUrlCondition: {
+              maxSize: 8 * 1024, // 8kb
+            },
+          },
+        },
+      ],
+    },
+
+    // Cache para compilaciones más rápidas
+    cache: true,
+
+    // Optimizar solo en producción
+    optimization: {
+      minimize: Meteor.isProduction,
+      ...(Meteor.isDevelopment && {
+        removeAvailableModules: false,
+        removeEmptyChunks: false,
+        splitChunks: false,
+      }),
+    },
+  };
+});

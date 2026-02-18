@@ -1,0 +1,11 @@
+{
+    "public": {
+        "googleClientId": "TU_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+    },
+    "private": {
+        "google": {
+            "clientSecret": "TU_GOOGLE_CLIENT_SECRET"
+        },
+        "note": "El clientSecret solo se usa en el servidor, nunca en el cliente"
+    }
+}
