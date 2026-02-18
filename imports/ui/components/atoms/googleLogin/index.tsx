@@ -1,65 +1,38 @@
 import React, { useState } from 'react';
 import { Button, CircularProgress } from '@mui/material';
-import { Meteor } from 'meteor/meteor';
-import { decodeGoogleCredential } from './googleSignIn';
 import { useTheme } from '@mui/material';
 
 interface GoogleLoginProps {
-  onSuccess?: (userInfo: any) => void;
+  onSuccess?: () => void;
   onError?: (error: Error) => void;
-  clientId?: string;
   variant?: 'login' | 'register';
   fullWidth?: boolean;
+  loading?: boolean;
 }
 
 export const GoogleLogin: React.FC<GoogleLoginProps> = ({
   onSuccess,
   onError,
-  clientId,
   variant = 'login',
   fullWidth = false,
+  loading: externalLoading = false,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [internalLoading, setInternalLoading] = useState(false);
+  const isLoading = externalLoading || internalLoading;
   const theme = useTheme();
-
   const isDark = theme.palette.mode === 'dark';
-
   const buttonText =
     variant === 'login' ? 'Continuar con Google' : 'Regístrate con Google';
 
-  const handleGoogleLogin = () => {
-    if (!window.google) {
-      console.error('Google Identity Services no está cargado');
-      onError?.(new Error('Google Identity Services no está disponible'));
-      return;
+  const handleClick = () => {
+    setInternalLoading(true);
+    try {
+      onSuccess?.();
+    } catch (error) {
+      onError?.(error as Error);
+    } finally {
+      setInternalLoading(false);
     }
-
-    setIsLoading(true);
-
-    const GOOGLE_CLIENT_ID =
-      clientId || (Meteor.settings?.public as any)?.googleClientId || '';
-
-    window.google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: (response: any) => {
-        try {
-          const userInfo = decodeGoogleCredential(response.credential);
-          if (userInfo) {
-            console.log('✅ Usuario autenticado con Google:', userInfo);
-            onSuccess?.(userInfo);
-          } else {
-            throw new Error('No se pudo decodificar el credential de Google');
-          }
-        } catch (error) {
-          console.error('❌ Error al procesar el credential:', error);
-          onError?.(error as Error);
-        } finally {
-          setIsLoading(false);
-        }
-      },
-    });
-
-    window.google.accounts.id.prompt();
   };
 
   const googleLogo = (
@@ -90,7 +63,7 @@ export const GoogleLogin: React.FC<GoogleLoginProps> = ({
 
   return (
     <Button
-      onClick={handleGoogleLogin}
+      onClick={handleClick}
       disabled={isLoading}
       variant="outlined"
       fullWidth={fullWidth}

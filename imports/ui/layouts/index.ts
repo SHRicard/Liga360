@@ -1,3 +1,4 @@
 import { PublicLayout } from './publicLayouts';
+import { PrivateLayouts } from './privateLayouts';
 
-export { PublicLayout };
+export { PublicLayout, PrivateLayouts };

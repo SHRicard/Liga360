@@ -20,7 +20,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.71.1",
     "react-router-dom": "^7.13.0",
-    "react-spinners": "^0.17.0"
+    "react-spinners": "^0.17.0",
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@meteorjs/rspack": "^1.0.0",
@@ -29,6 +30,7 @@
     "@rspack/core": "^1.7.1",
     "@rspack/plugin-react-refresh": "^1.4.3",
     "@types/meteor": "^2.9.9",
+    "@types/meteor-mdg-validated-method": "^1.2.12",
     "@types/mocha": "^8.2.3",
     "@types/node": "^22.10.6",
     "@types/react": "^18.2.5",

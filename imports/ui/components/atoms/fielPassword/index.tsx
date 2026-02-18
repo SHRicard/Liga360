@@ -15,6 +15,7 @@ interface FieldPasswordProps<T extends FieldValues> {
   fullWidth?: boolean;
   helperText?: string;
   size?: 'small' | 'medium';
+  validate?: (value: string) => string | true;
 }
 
 export const FieldPassword = <T extends FieldValues>({
@@ -29,6 +30,7 @@ export const FieldPassword = <T extends FieldValues>({
   fullWidth = true,
   helperText = 'Mínimo 6 caracteres',
   size = 'medium',
+  validate,
 }: FieldPasswordProps<T>) => {
   const [showPassword, setShowPassword] = useState(false);
   const theme = useTheme();
@@ -47,6 +49,7 @@ export const FieldPassword = <T extends FieldValues>({
           value: minLength,
           message: `Debe tener al menos ${minLength} caracteres`,
         },
+        validate,
       }}
       render={({ field, fieldState: { error } }) => (
         <TextField

@@ -1,5 +1,8 @@
+export type Role = 'player' | 'admin' | 'tournament_admin' | 'super_admin';
+
 export const ROLE = {
   SUPER_ADMIN: 'super_admin',
-  COMPANY_ADMIN: 'company_admin',
-  USER: 'user',
+  TOURNAMENT_ADMIN: 'tournament_admin',
+  ADMIN: 'admin',
+  PLAYER: 'player',
 } as const;

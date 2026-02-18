@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { Box, Typography, Divider, Stack, Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useForm, useWatch } from 'react-hook-form';
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+import {
+  Person,
+  Badge,
+  SportsSoccer,
+  Groups,
+  TrendingUp,
+} from '@mui/icons-material';
 import {
   Card,
   FieldText,
@@ -12,58 +21,92 @@ import {
   Stepper,
 } from '../../components';
 import type { StepItem } from '../../components';
-import {
-  Person,
-  Badge,
-  VerifiedUser,
-  Lock,
-  Speed,
-  CheckCircle,
-} from '@mui/icons-material';
-
-interface RegisterFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+import { IRegisterData } from '../../interface';
+import { APP_ROUTES } from '../../config';
 
 export const RegisterPage = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const { control, handleSubmit, trigger } = useForm<RegisterFormData>({
+  const { control, handleSubmit, trigger, getValues } = useForm<IRegisterData>({
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      nombre: '',
+      apellido: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
     mode: 'onChange',
   });
 
   const formValues = useWatch({ control });
 
-  const onSubmit = (data: RegisterFormData) => {
-    console.log('Register attempt:', data);
-    // Aquí irá la lógica de registro
+  const onSubmit = (data: IRegisterData) => {
+    setIsLoading(true);
+    Accounts.createUser(
+      {
+        email: data.email,
+        password: data.password,
+        profile: {
+          nombre: data.nombre,
+          apellido: data.apellido,
+          avatar: '',
+        },
+      },
+      error => {
+        if (error) {
+          console.error('❌ Error al crear usuario:', error);
+          setIsLoading(false);
+        } else {
+          console.log('✅ Usuario creado exitosamente');
+          navigate(APP_ROUTES.PRIVATE.DASHBOARD);
+        }
+      }
+    );
+  };
+
+  const handleGoogleRegister = () => {
+    setIsLoading(true);
+    Meteor.loginWithGoogle(
+      {
+        requestPermissions: ['email', 'profile'],
+        loginStyle: 'popup',
+      },
+      error => {
+        if (error) {
+          console.error('❌ Error en registro con Google:', error);
+          setIsLoading(false);
+        } else {
+          console.log('✅ Usuario autenticado con Google');
+          navigate(APP_ROUTES.PRIVATE.DASHBOARD);
+        }
+      }
+    );
+  };
+
+  const handleGoogleError = (error: Error) => {
+    console.error('❌ Error en registro con Google:', error);
+    setIsLoading(false);
+  };
+
+  const handleMercadoPagoRegister = (userInfo: any) => {
+    console.log('MercadoPago userInfo:', userInfo);
+  };
+
+  const handleMercadoPagoError = (error: Error) => {
+    console.error('❌ Error en registro con Mercado Pago:', error);
   };
 
   const handleNext = async () => {
     let isValid = false;
-
-    // Validar campos según el paso actual
     if (activeStep === 0) {
-      // Paso 1: Validar nombre y apellido
-      isValid = await trigger(['firstName', 'lastName']);
+      isValid = await trigger(['nombre', 'apellido']);
     } else if (activeStep === 1) {
-      // Paso 2: Validar email y password
-      isValid = await trigger(['email', 'password']);
+      isValid = await trigger(['email', 'password', 'confirmPassword']);
     } else {
-      // Paso 3: Confirmación, no requiere validación adicional
       isValid = true;
     }
-
-    // Solo avanzar si la validación es exitosa
     if (isValid) {
       setActiveStep(prev => Math.min(prev + 1, 2));
     }
@@ -84,7 +127,7 @@ export const RegisterPage = () => {
       content: (
         <Stack spacing={2.5}>
           <FieldText
-            name="firstName"
+            name="nombre"
             control={control}
             label="Nombre"
             placeholder="Tu nombre"
@@ -94,7 +137,7 @@ export const RegisterPage = () => {
             required
           />
           <FieldText
-            name="lastName"
+            name="apellido"
             control={control}
             label="Apellido"
             placeholder="Tu apellido"
@@ -130,6 +173,19 @@ export const RegisterPage = () => {
             minLength={6}
             required
           />
+          <FieldPassword
+            name="confirmPassword"
+            control={control}
+            label="Repetir contraseña"
+            placeholder="Repite tu contraseña"
+            fullWidth
+            size="small"
+            minLength={6}
+            required
+            validate={value =>
+              value === getValues('password') || 'Las contraseñas no coinciden'
+            }
+          />
         </Stack>
       ),
     },
@@ -151,7 +207,7 @@ export const RegisterPage = () => {
                   Nombre completo
                 </Typography>
                 <Typography variant="body2" fontWeight={600}>
-                  {formValues?.firstName || '-'} {formValues?.lastName || '-'}
+                  {formValues?.nombre || '-'} {formValues?.apellido || '-'}
                 </Typography>
               </Box>
               <Divider />
@@ -161,17 +217,6 @@ export const RegisterPage = () => {
                 </Typography>
                 <Typography variant="body2" fontWeight={600}>
                   {formValues?.email || '-'}
-                </Typography>
-              </Box>
-              <Divider />
-              <Box>
-                <Typography variant="caption" color="text.secondary">
-                  Contraseña
-                </Typography>
-                <Typography variant="body2" fontWeight={600}>
-                  {formValues?.password
-                    ? '•'.repeat(formValues.password.length)
-                    : '-'}
                 </Typography>
               </Box>
             </Stack>
@@ -223,8 +268,19 @@ export const RegisterPage = () => {
 
               {/* Botones de login social */}
               <Stack spacing={2}>
-                <GoogleLogin fullWidth variant="register" />
-                <MercadoPagoLogin fullWidth variant="register" />
+                <GoogleLogin
+                  fullWidth
+                  variant="register"
+                  loading={isLoading}
+                  onSuccess={handleGoogleRegister}
+                  onError={handleGoogleError}
+                />
+                <MercadoPagoLogin
+                  fullWidth
+                  variant="register"
+                  onSuccess={handleMercadoPagoRegister}
+                  onError={handleMercadoPagoError}
+                />
               </Stack>
 
               {/* Leyenda de seguridad */}
@@ -242,47 +298,44 @@ export const RegisterPage = () => {
                     borderColor: 'divider',
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                    <VerifiedUser
-                      sx={{ fontSize: '2.5rem', color: 'primary.main' }}
-                    />
-                    <Box>
-                      <Typography
-                        variant="body1"
-                        fontWeight={700}
-                        color="text.primary"
-                      >
-                        100% Seguro y Confiable
-                      </Typography>
-                      <Typography variant="caption" color="text.secondary">
-                        Tu información siempre protegida
-                      </Typography>
-                    </Box>
+                  <Box sx={{ textAlign: 'center', pb: 1 }}>
+                    <Typography
+                      variant="subtitle2"
+                      fontWeight={800}
+                      color="primary.main"
+                      letterSpacing={1}
+                      sx={{ textTransform: 'uppercase' }}
+                    >
+                      Tu experiencia comienza en 360°
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      Únete a la plataforma de gestión deportiva
+                    </Typography>
                   </Box>
 
                   <Stack spacing={1.5}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Lock
+                      <SportsSoccer
                         sx={{ fontSize: '1.2rem', color: 'primary.main' }}
                       />
                       <Typography variant="body2" color="text.primary">
-                        Encriptación de datos de alto nivel
+                        Participá en torneos y ligas oficiales
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Speed
+                      <Groups
                         sx={{ fontSize: '1.2rem', color: 'primary.main' }}
                       />
                       <Typography variant="body2" color="text.primary">
-                        Acceso rápido en un solo clic
+                        Conectá con equipos, jugadores y organizadores
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <CheckCircle
+                      <TrendingUp
                         sx={{ fontSize: '1.2rem', color: 'primary.main' }}
                       />
                       <Typography variant="body2" color="text.primary">
-                        Sin necesidad de recordar contraseñas
+                        Seguí tu progreso y estadísticas en tiempo real
                       </Typography>
                     </Box>
                   </Stack>

@@ -2,7 +2,8 @@ import React from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute, APP_ROUTES } from '../config';
 import { createLazyComponent } from '../performance/lazyLoader';
-import { PublicLayout } from '../layouts';
+import { PublicLayout, PrivateLayouts } from '../layouts';
+import { SuspenseWrapper } from '../components';
 
 const DesignSystemPage = createLazyComponent(() =>
   import('../pages/design_system').then(m => ({ default: m.DesignSystemPage }))
@@ -24,35 +25,93 @@ const RecoveryPasswordPage = createLazyComponent(() =>
   }))
 );
 
+const DashboardPage = createLazyComponent(() =>
+  import('../pages/dashboard').then(m => ({ default: m.DashboardPage }))
+);
+
+const SelectRolePage = createLazyComponent(() =>
+  import('../pages/select_role').then(m => ({ default: m.SelectRolePage }))
+);
+
 export const router = createBrowserRouter([
   {
     // Layout público con rutas anidadas
-    element: <PublicLayout />,
+    element: (
+      <SuspenseWrapper>
+        <PublicLayout />
+      </SuspenseWrapper>
+    ),
     children: [
       {
         path: APP_ROUTES.PUBLIC.DESIGN_SYSTEM,
-        element: <DesignSystemPage />,
+        element: (
+          <SuspenseWrapper>
+            <DesignSystemPage />
+          </SuspenseWrapper>
+        ),
       },
       {
         path: APP_ROUTES.PUBLIC.LANDING,
-        element: <LandingPage />,
+        element: (
+          <SuspenseWrapper>
+            <LandingPage />
+          </SuspenseWrapper>
+        ),
       },
       {
         path: APP_ROUTES.PUBLIC.LOGIN,
-        element: <LoginPage />,
+        element: (
+          <SuspenseWrapper>
+            <LoginPage />
+          </SuspenseWrapper>
+        ),
       },
       {
         path: APP_ROUTES.PUBLIC.REGISTER,
-        element: <RegisterPage />,
+        element: (
+          <SuspenseWrapper>
+            <RegisterPage />
+          </SuspenseWrapper>
+        ),
       },
       {
         path: APP_ROUTES.PUBLIC.RECOVERY_PASSWORD,
-        element: <RecoveryPasswordPage />,
-      },
-      {
-        path: '*',
-        element: <Navigate to={APP_ROUTES.PUBLIC.LOGIN} replace />,
+        element: (
+          <SuspenseWrapper>
+            <RecoveryPasswordPage />
+          </SuspenseWrapper>
+        ),
       },
     ],
+  },
+  {
+    // Ruta privada - selección de rol (sin necesidad de rol asignado)
+    path: APP_ROUTES.PRIVATE.SELECT_ROLE,
+    element: (
+      <ProtectedRoute requireRole={false}>
+        <SuspenseWrapper>
+          <PrivateLayouts>
+            <SelectRolePage />
+          </PrivateLayouts>
+        </SuspenseWrapper>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    // Ruta privada - dashboard
+    path: APP_ROUTES.PRIVATE.DASHBOARD,
+    element: (
+      <ProtectedRoute>
+        <PrivateLayouts>
+          <SuspenseWrapper>
+            <DashboardPage />
+          </SuspenseWrapper>
+        </PrivateLayouts>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '*',
+    element: <Navigate to={APP_ROUTES.PUBLIC.LOGIN} replace />,
   },
 ]);

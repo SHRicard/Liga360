@@ -50,8 +50,7 @@ while true; do
         echo -e "${BLUE}==========================================${NC}"
         echo -e "${RED}Presiona Ctrl+C para detener${NC}"
         break
-    fi
-    
+    fi    
     if ! kill -0 $METEOR_PID 2>/dev/null; then
         echo "Error al iniciar la aplicación"
         echo "Log: $LOG_FILE"
@@ -61,6 +60,11 @@ while true; do
     sleep 1
 done
 
-# Mantener ejecutando
+# Mostrar log en tiempo real filtrando líneas internas de Meteor
 trap "echo 'Deteniendo $APP_NAME...'; kill $METEOR_PID 2>/dev/null; exit 0" INT TERM
+tail -f $LOG_FILE | grep -v --line-buffered '^=>' &
+TAIL_PID=$!
+
+# Esperar a que el proceso meteor termine
 wait $METEOR_PID
+kill $TAIL_PID 2>/dev/null

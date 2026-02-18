@@ -1,37 +1,49 @@
 import { Meteor } from 'meteor/meteor';
-import { Link, LinksCollection } from '/imports/api/links';
+import { ServiceConfiguration } from 'meteor/service-configuration';
+import { useRegisterUser } from '/imports/api';
 
-async function insertLink({ title, url }: Pick<Link, 'title' | 'url'>) {
-  await LinksCollection.insertAsync({ title, url, createdAt: new Date() });
-}
+// Publica el campo `role` del usuario autenticado al cliente
+Meteor.publish('users.currentRole', function () {
+  if (!this.userId) {
+    return this.ready();
+  }
+  return Meteor.users.find({ _id: this.userId }, { fields: { role: 1 } });
+});
 
 Meteor.startup(async () => {
-  // If the Links collection is empty, add some data.
-  if (await LinksCollection.find().countAsync() === 0) {
-    await insertLink({
-      title: 'Do the Tutorial',
-      url: 'https://react-tutorial.meteor.com/simple-todos/01-creating-app.html',
-    });
+  const googleClientId = Meteor.settings?.public?.googleClientId;
+  const googleClientSecret = Meteor.settings?.private?.google?.clientSecret;
 
-    await insertLink({
-      title: 'Follow the Guide',
-      url: 'https://guide.meteor.com',
-    });
+  const green = '\x1b[32m';
+  const red = '\x1b[31m';
+  const cyan = '\x1b[36m';
+  const yellow = '\x1b[33m';
+  const reset = '\x1b[0m';
+  const ok = `${green} correcto${reset}`;
+  const err = `${red} faltante${reset}`;
 
-    await insertLink({
-      title: 'Read the Docs',
-      url: 'https://docs.meteor.com',
-    });
-
-    await insertLink({
-      title: 'Discussions',
-      url: 'https://forums.meteor.com',
-    });
+  console.log(`${cyan}==========================================${reset}`);
+  console.log(`${green}Variables de entorno${reset}`);
+  console.log(`${cyan}==========================================${reset}`);
+  console.log(`${yellow}Google -${reset}`);
+  console.log(`  ID_CLIENTE     : ${googleClientId ? ok : err}`);
+  console.log(`  SECRETO_CLIENTE: ${googleClientSecret ? ok : err}`);
+  console.log(`${cyan}==========================================${reset}`);
+  if (googleClientId && googleClientSecret) {
+    await ServiceConfiguration.configurations.upsertAsync(
+      { service: 'google' },
+      {
+        $set: {
+          clientId: googleClientId,
+          secret: googleClientSecret,
+          loginStyle: 'popup',
+        },
+      }
+    );
   }
 
-  // We publish the entire Links collection to all clients.
-  // In order to be fetched in real-time to the clients
-  Meteor.publish("links", function () {
-    return LinksCollection.find();
-  });
+  // ==========================================
+  // Hooks de usuarios
+  // ==========================================
+  useRegisterUser();
 });
