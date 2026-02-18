@@ -19,8 +19,9 @@ Transformar la manera en que se organizan y gestionan los torneos de fútbol, pr
 ## ✨ Características Principales
 
 ### 🎮 Para Jugadores
+
 - **Perfil Deportivo Completo**: Gestión de datos personales, contacto y ubicación geográfica
-- **Estadísticas Detalladas**: 
+- **Estadísticas Detalladas**:
   - Partidos jugados, ganados, perdidos y empatados
   - Estadísticas ofensivas (goles, asistencias, tiros)
   - Estadísticas defensivas (tackles, intercepciones, vallas invictas)
@@ -31,20 +32,21 @@ Transformar la manera en que se organizan y gestionan los torneos de fútbol, pr
 - **Historial Completo**: Registro de todos los partidos y torneos en los que has participado
 
 ### 🏆 Para Organizadores de Torneos
-- **Creación de Torneos Personalizados**: 
+
+- **Creación de Torneos Personalizados**:
   - Configuración detallada de formato y reglas
   - Definición de premios y costos de inscripción
   - Gestión de fechas y sedes
 - **Gestión de Equipos**: Control completo de inscripciones y equipos participantes
-- **Programación de Partidos**: 
+- **Programación de Partidos**:
   - Calendario de partidos
   - Reprogramación flexible
   - Control de suspensiones
-- **Dashboard Financiero**: 
+- **Dashboard Financiero**:
   - Seguimiento de ingresos por inscripciones
   - Control de premios otorgados
   - Gestión de comisiones de plataforma
-- **Sistema de Reputación**: 
+- **Sistema de Reputación**:
   - Valoraciones de participantes
   - Rating promedio como organizador
   - Historial de torneos organizados
@@ -54,26 +56,28 @@ Transformar la manera en que se organizan y gestionan los torneos de fútbol, pr
   - Métricas de desempeño y reputación
 
 ### 👨‍💼 Para Administradores
-- **Panel de Moderación**: 
+
+- **Panel de Moderación**:
   - Revisión y aprobación de usuarios
   - Sistema de baneos y advertencias
   - Gestión de suspensiones temporales
-- **Supervisión de Torneos**: 
+- **Supervisión de Torneos**:
   - Aprobación de torneos nuevos
   - Rechazo de torneos que no cumplen normas
   - Suspensión de torneos problemáticos
-- **Gestión de Reportes**: 
+- **Gestión de Reportes**:
   - Atención a reportes de usuarios
   - Resolución de conflictos
   - Escalación de casos complejos
-- **Control del Sistema**: 
+- **Control del Sistema**:
   - Ajustes manuales en estadísticas
   - Gestión de acciones críticas
   - Auditoría de actividad administrativa
 - **Métricas Globales**: Acceso completo a todas las estadísticas de la plataforma
 
 ### 📊 Sistema de Métricas Global
-- **Usuarios**: 
+
+- **Usuarios**:
   - Total por rol (jugadores, admins, organizadores)
   - Estados (online, offline, suspendido, bloqueado)
   - Usuarios activos diarios y mensuales
@@ -170,6 +174,7 @@ Liga360/
 ## 🚀 Instalación y Desarrollo
 
 ### Requisitos Previos
+
 - **Node.js**: v14 o superior
 - **Meteor.js**: Última versión estable
 - **MongoDB**: (Meteor incluye una instancia local)
@@ -224,12 +229,14 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 ## 👥 Roles y Permisos
 
 ### Jugador (`player`)
+
 - Gestionar perfil personal
 - Ver y editar estadísticas propias
 - Inscribirse a torneos
 - Ver historial de partidos
 
 ### Administrador de Torneo (`tournament_admin`)
+
 - Todos los permisos de jugador
 - Crear y gestionar torneos
 - Administrar equipos inscritos
@@ -237,6 +244,7 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 - Acceso a métricas financieras propias
 
 ### Administrador (`admin`)
+
 - Moderar usuarios y contenido
 - Aprobar/rechazar torneos
 - Gestionar reportes
@@ -244,6 +252,7 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 - Aplicar sanciones (advertencias, baneos)
 
 ### Super Administrador (`super_admin`)
+
 - Acceso total al sistema
 - Gestión de administradores
 - Acciones críticas del sistema
@@ -254,18 +263,21 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 ## 📈 Estados del Sistema
 
 ### Estados de Usuario
+
 - `online`: Usuario actualmente conectado
 - `offline`: Usuario desconectado
 - `suspendido`: Cuenta temporalmente suspendida (puede reactivarse)
 - `bloqueado`: Cuenta bloqueada permanentemente
 
 ### Estados de Torneo
+
 - `active`: Torneo en curso con partidos activos
 - `finished`: Torneo completado exitosamente
 - `cancelled`: Torneo cancelado por el organizador
 - `suspended`: Torneo suspendido por administración
 
 ### Estados de Partido
+
 - `scheduled`: Partido programado pendiente de jugar
 - `played`: Partido completado con resultados registrados
 - `suspended`: Partido suspendido (clima, incidentes, etc.)
@@ -289,24 +301,29 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 ### Colecciones Principales
 
 #### Users
+
 ```typescript
 {
-  _id: string
-  emails: Array<{ address: string, verified: boolean }>
-  roles: Array<'player' | 'admin' | 'tournament_admin' | 'super_admin'>
+  _id: string;
+  emails: Array<{ address: string; verified: boolean }>;
+  roles: Array<'player' | 'admin' | 'tournament_admin' | 'super_admin'>;
   profile: {
-    nombre, apellido, telefono, avatar
-    address: { provincia, partido, barrio, calle, altura, codigoPostal, geo }
+    (nombre, apellido, telefono, avatar);
+    address: {
+      (provincia, partido, barrio, calle, altura, codigoPostal, geo);
+    }
   }
-  status: 'online' | 'offline' | 'suspendido' | 'bloqueado'
-  createdAt, updatedAt, lastLoginAt
+  status: 'online' | 'offline' | 'suspendido' | 'bloqueado';
+  (createdAt, updatedAt, lastLoginAt);
 }
 ```
 
 #### User Metrics (PlayerMetrics, AdminMetrics, TournamentAdminMetrics)
+
 Estadísticas específicas por rol con métricas de desempeño
 
 #### App Metrics
+
 Métricas globales de la plataforma actualizadas en tiempo real
 
 ---
@@ -333,6 +350,7 @@ Métricas globales de la plataforma actualizadas en tiempo real
 ### Convenciones de Commits
 
 Usamos [Conventional Commits](https://www.conventionalcommits.org/):
+
 - `✨ feat:` Nueva característica
 - `🐛 fix:` Corrección de bug
 - `📝 docs:` Cambios en documentación
