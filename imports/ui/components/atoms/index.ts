@@ -8,6 +8,7 @@ import { GoogleLogin } from './googleLogin';
 import { MercadoPagoLogin } from './mercadoPagoLogin';
 import { BtnTheme } from './btnTheme';
 import { SuspenseWrapper } from './suspenseWrapper';
+import { AnimatedLogo } from './animatedLogo';
 
 export {
   FieldPassword,
@@ -20,4 +21,5 @@ export {
   MercadoPagoLogin,
   BtnTheme,
   SuspenseWrapper,
+  AnimatedLogo,
 };

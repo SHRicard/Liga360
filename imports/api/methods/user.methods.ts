@@ -22,8 +22,9 @@ export const updateUserRole = new ValidatedMethod({
 
     const validRoles: UserRole[] = [
       'player',
-      'admin',
-      'tournament_admin',
+      'owner',
+      'manager',
+      'referee',
       'super_admin',
     ];
     if (!validRoles.includes(role)) {
@@ -39,7 +40,7 @@ export const updateUserRole = new ValidatedMethod({
       );
     }
 
-    const allowedRoles: UserRole[] = ['player', 'admin', 'tournament_admin'];
+    const allowedRoles: UserRole[] = ['player', 'owner', 'manager', 'referee'];
     if (!allowedRoles.includes(role)) {
       await LogHelper.logError(
         this.userId,

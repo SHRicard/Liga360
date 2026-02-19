@@ -59,7 +59,6 @@ export const RegisterPage = () => {
           console.error('❌ Error al crear usuario:', error);
           setIsLoading(false);
         } else {
-          console.log('✅ Usuario creado exitosamente');
           navigate(APP_ROUTES.PRIVATE.DASHBOARD);
         }
       }
@@ -78,7 +77,6 @@ export const RegisterPage = () => {
           console.error('❌ Error en registro con Google:', error);
           setIsLoading(false);
         } else {
-          console.log('✅ Usuario autenticado con Google');
           navigate(APP_ROUTES.PRIVATE.DASHBOARD);
         }
       }
@@ -90,8 +88,8 @@ export const RegisterPage = () => {
     setIsLoading(false);
   };
 
-  const handleMercadoPagoRegister = (userInfo: any) => {
-    console.log('MercadoPago userInfo:', userInfo);
+  const handleMercadoPagoRegister = (_userInfo: any) => {
+    // TODO: handle Mercado Pago register
   };
 
   const handleMercadoPagoError = (error: Error) => {

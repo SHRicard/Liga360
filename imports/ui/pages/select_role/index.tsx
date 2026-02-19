@@ -1,28 +1,23 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  Button,
-  Paper,
-  Stack,
-  Alert,
-  CircularProgress,
-  Chip,
-} from '@mui/material';
+import { Box, Typography, Alert, Chip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import PersonIcon from '@mui/icons-material/Person';
 import StadiumIcon from '@mui/icons-material/Stadium';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import SportsIcon from '@mui/icons-material/Sports';
 import { useNavigate } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Role, APP_ROUTES } from '../../config';
 import { AVAILABLE_ROLES } from '../../helpers';
 import { useUserStore } from '../../contexts/useStore/userStore';
+import { BtnGeneral } from '../../components/atoms/btnGeneral';
+import { AnimatedLogo } from '../../components/atoms/animatedLogo';
 
 const ROLE_ICONS: Record<string, React.ReactElement> = {
   player: <PersonIcon sx={{ fontSize: 36 }} />,
-  admin: <StadiumIcon sx={{ fontSize: 36 }} />,
-  tournament_admin: <EmojiEventsIcon sx={{ fontSize: 36 }} />,
+  owner: <StadiumIcon sx={{ fontSize: 36 }} />,
+  manager: <EmojiEventsIcon sx={{ fontSize: 36 }} />,
+  referee: <SportsIcon sx={{ fontSize: 36 }} />,
 };
 
 export const SelectRolePage = () => {
@@ -56,10 +51,12 @@ export const SelectRolePage = () => {
       {/* Header */}
       <Box
         sx={{
-          width: '100%',
           textAlign: 'center',
           p: { xs: 3, sm: 4 },
+          mx: { xs: 2, sm: 3, md: 4 },
+          mt: { xs: 2, sm: 3 },
           mb: 2,
+          borderRadius: 1,
           background: 'rgba(255, 255, 255, 0.03)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
@@ -67,50 +64,17 @@ export const SelectRolePage = () => {
           boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)',
         }}
       >
-        <Box
-          component="span"
-          sx={{
-            display: 'inline-block',
-            px: 2.5,
-            py: 0.4,
-            mb: 1.5,
-            borderRadius: '20px',
-            background:
-              'linear-gradient(135deg, rgba(255,213,0,0.18) 0%, rgba(255,180,0,0.08) 50%, rgba(255,213,0,0.18) 100%)',
-            border: '1px solid rgba(255,213,0,0.45)',
-            backdropFilter: 'blur(8px)',
-            boxShadow:
-              '0 0 12px rgba(255,200,0,0.25), inset 0 1px 0 rgba(255,230,100,0.3)',
-            '@keyframes pulse': {
-              '0%, 100%': { transform: 'scale(1)' },
-              '50%': { transform: 'scale(1.08)' },
-            },
-            animation: 'pulse 2.4s ease-in-out infinite',
-          }}
-        >
-          <Typography
-            variant="overline"
-            sx={{
-              color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
-              letterSpacing: 4,
-              fontSize: '0.6rem',
-              fontWeight: 800,
-              lineHeight: 1,
-            }}
-          >
-            Liga360
-          </Typography>
-        </Box>
+        <AnimatedLogo size={50} />
         <Typography
           variant="h5"
           fontWeight={800}
-          sx={{ color: t?.headerTitle, mt: 0.5, mb: 1 }}
+          sx={{ color: 'text.primary', mt: 0.5, mb: 1 }}
         >
           ¿Cómo usarás la plataforma?
         </Typography>
         <Typography
           variant="body2"
-          sx={{ color: t?.headerSubtitle, maxWidth: 'auto', mx: 'auto' }}
+          sx={{ color: 'text.secondary', maxWidth: 'auto', mx: 'auto' }}
         >
           Elige el rol que mejor describe tu actividad. Esto define qué
           funciones tendrás disponibles.
@@ -124,25 +88,30 @@ export const SelectRolePage = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          px: 2,
+          px: { xs: 2, sm: 3, md: 4 },
           pb: 4,
         }}
       >
-        <Box sx={{ width: '100%', maxWidth: 780 }}>
+        <Box sx={{ width: '100%' }}>
           {error && (
             <Alert
               severity="error"
-              sx={{ mb: 3, borderRadius: 2 }}
+              sx={{ mb: 3, borderRadius: 1 }}
               onClose={() => setError(null)}
             >
               {error}
             </Alert>
           )}
 
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            spacing={2}
-            alignItems="stretch"
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: 'repeat(2, 1fr)',
+                md: 'repeat(4, 1fr)',
+              },
+              gap: 2,
+            }}
           >
             {AVAILABLE_ROLES.map(role => {
               const roleColors = t?.roles?.[role.value] ?? {
@@ -156,10 +125,9 @@ export const SelectRolePage = () => {
                   key={role.value}
                   onClick={() => !loading && setSelected(role.value)}
                   sx={{
-                    p: 3,
-                    flex: 1,
+                    p: { xs: 2, sm: 3 },
                     cursor: loading ? 'not-allowed' : 'pointer',
-                    borderRadius: 3,
+                    borderRadius: 1,
                     border: '1px solid',
                     borderColor: isSelected
                       ? roleColors.color
@@ -173,6 +141,9 @@ export const SelectRolePage = () => {
                       ? `0 0 20px ${roleColors.color}33, inset 0 1px 0 rgba(255,255,255,0.1)`
                       : '0 2px 12px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.06)',
                     transition: 'all 0.25s ease',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minHeight: { xs: 180, sm: 220 },
                     '&:hover': loading
                       ? {}
                       : {
@@ -188,15 +159,16 @@ export const SelectRolePage = () => {
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
-                      gap: 2,
+                      gap: 1.5,
                       textAlign: 'center',
+                      flex: 1,
                     }}
                   >
                     <Box
                       sx={{
-                        width: 56,
-                        height: 56,
-                        borderRadius: 2.5,
+                        width: { xs: 48, sm: 56 },
+                        height: { xs: 48, sm: 56 },
+                        borderRadius: 1,
                         background: isSelected
                           ? roleColors.color
                           : 'rgba(255,255,255,0.08)',
@@ -216,31 +188,23 @@ export const SelectRolePage = () => {
                     </Box>
 
                     <Box sx={{ flex: 1, minWidth: 0 }}>
-                      <Box
+                      <Typography
+                        variant="subtitle2"
+                        fontWeight={700}
                         sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: 1,
+                          color: isSelected ? roleColors.color : 'text.primary',
                           mb: 0.5,
                         }}
                       >
-                        <Typography
-                          variant="subtitle1"
-                          fontWeight={700}
-                          sx={{
-                            color: isSelected
-                              ? roleColors.color
-                              : 'text.primary',
-                          }}
-                        >
-                          {role.label}
-                        </Typography>
-                      </Box>
+                        {role.label}
+                      </Typography>
                       <Typography
-                        variant="body2"
+                        variant="caption"
                         color="text.secondary"
-                        sx={{ lineHeight: 1.4 }}
+                        sx={{
+                          lineHeight: 1.4,
+                          display: { xs: 'none', sm: 'block' },
+                        }}
                       >
                         {role.description}
                       </Typography>
@@ -256,6 +220,7 @@ export const SelectRolePage = () => {
                           fontWeight: 600,
                           height: 20,
                           fontSize: '0.65rem',
+                          mt: 'auto',
                         }}
                       />
                     )}
@@ -263,30 +228,17 @@ export const SelectRolePage = () => {
                 </Box>
               );
             })}
-          </Stack>
-
-          <Button
-            variant="contained"
-            size="large"
-            fullWidth
-            disabled={!selected || loading}
-            onClick={handleConfirm}
-            startIcon={
-              loading ? <CircularProgress size={20} color="inherit" /> : null
-            }
-            sx={{
-              mt: 3,
-              py: 1.5,
-              borderRadius: 2.5,
-              fontWeight: 700,
-              fontSize: '1rem',
-              textTransform: 'none',
-              background: selected ? t?.confirmBg : undefined,
-              boxShadow: selected ? t?.confirmShadow : undefined,
-            }}
-          >
-            {loading ? 'Guardando...' : 'Confirmar y continuar'}
-          </Button>
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+            <BtnGeneral
+              type="primary"
+              loading={loading}
+              disabled={!selected}
+              onClick={handleConfirm}
+            >
+              {loading ? 'Guardando...' : 'Confirmar y continuar'}
+            </BtnGeneral>
+          </Box>
         </Box>
       </Box>
     </Box>

@@ -14,24 +14,31 @@ export const AVAILABLE_ROLES: RoleInfo[] = [
       'Podrás participar en torneos, unirte a equipos y gestionar tu perfil de jugador.',
   },
   {
-    value: 'admin',
+    value: 'owner',
     label: 'Propietario',
     description:
       'Podrás gestionar tus canchas, horarios, reservas y configuraciones de tu establecimiento.',
   },
   {
-    value: 'tournament_admin',
+    value: 'manager',
     label: 'Creador de Torneos',
     description:
       'Podrás crear y administrar torneos, gestionar equipos participantes y controlar el desarrollo de competiciones.',
+  },
+  {
+    value: 'referee',
+    label: 'Árbitro',
+    description:
+      'Podrás dirigir partidos, registrar incidencias, tarjetas y goles durante los encuentros.',
   },
 ];
 
 export const translateRole = (role: Role): string => {
   const roleMap: Record<Role, string> = {
     player: 'Jugador',
-    admin: 'Propietario',
-    tournament_admin: 'Creador de Torneos',
+    owner: 'Propietario',
+    manager: 'Creador de Torneos',
+    referee: 'Árbitro',
     super_admin: 'Super Administrador',
   };
 

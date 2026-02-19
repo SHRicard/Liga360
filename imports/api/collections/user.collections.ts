@@ -1,7 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
-export type UserRole = 'player' | 'manager' | 'owner' | 'super_admin';
+export type UserRole =
+  | 'player'
+  | 'owner'
+  | 'manager'
+  | 'referee'
+  | 'super_admin';
 export type UserStatus = 'activo' | 'suspendido' | 'bloqueado';
 
 export interface IUser {

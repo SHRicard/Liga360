@@ -50,7 +50,7 @@ export const getLogsByAction = new ValidatedMethod({
     const user = await Meteor.users.findOneAsync({ _id: this.userId });
     const userRole = (user as any)?.role;
 
-    if (!['admin', 'super_admin'].includes(userRole)) {
+    if (!['owner', 'super_admin'].includes(userRole)) {
       await LogHelper.logError(
         this.userId,
         'logs.getByAction',

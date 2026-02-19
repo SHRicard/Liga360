@@ -138,8 +138,9 @@ declare module '@mui/material/styles' {
         confirmShadow: string;
         roles: {
           player: { color: string; bg: string };
-          admin: { color: string; bg: string };
-          tournament_admin: { color: string; bg: string };
+          owner: { color: string; bg: string };
+          manager: { color: string; bg: string };
+          referee: { color: string; bg: string };
         };
       };
     };
@@ -183,8 +184,9 @@ declare module '@mui/material/styles' {
         confirmShadow?: string;
         roles?: {
           player?: { color?: string; bg?: string };
-          admin?: { color?: string; bg?: string };
-          tournament_admin?: { color?: string; bg?: string };
+          owner?: { color?: string; bg?: string };
+          manager?: { color?: string; bg?: string };
+          referee?: { color?: string; bg?: string };
         };
       };
     };
@@ -247,8 +249,9 @@ export const darkThemeExtended = createTheme(darkTheme, {
       confirmShadow: '0 4px 16px rgba(144,202,249,0.25)',
       roles: {
         player: { color: '#90caf9', bg: 'rgba(144,202,249,0.08)' },
-        admin: { color: '#81c784', bg: 'rgba(129,199,132,0.08)' },
-        tournament_admin: { color: '#ffb74d', bg: 'rgba(255,183,77,0.08)' },
+        owner: { color: '#81c784', bg: 'rgba(129,199,132,0.08)' },
+        manager: { color: '#ffb74d', bg: 'rgba(255,183,77,0.08)' },
+        referee: { color: '#b39ddb', bg: 'rgba(179,157,219,0.08)' },
       },
     },
   },

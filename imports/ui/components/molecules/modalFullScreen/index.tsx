@@ -15,6 +15,7 @@ import { useTheme } from '@mui/material/styles';
 import PersonIcon from '@mui/icons-material/Person';
 import StadiumIcon from '@mui/icons-material/Stadium';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import SportsIcon from '@mui/icons-material/Sports';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Meteor } from 'meteor/meteor';
 import { Role } from '../../../config';
@@ -28,8 +29,9 @@ interface ModalRoleProps {
 
 const ROLE_ICONS: Record<string, React.ReactElement> = {
   player: <PersonIcon sx={{ fontSize: 36 }} />,
-  admin: <StadiumIcon sx={{ fontSize: 36 }} />,
-  tournament_admin: <EmojiEventsIcon sx={{ fontSize: 36 }} />,
+  owner: <StadiumIcon sx={{ fontSize: 36 }} />,
+  manager: <EmojiEventsIcon sx={{ fontSize: 36 }} />,
+  referee: <SportsIcon sx={{ fontSize: 36 }} />,
 };
 
 export const ModalFullScreen: React.FC<ModalRoleProps> = ({
@@ -221,7 +223,9 @@ export const ModalFullScreen: React.FC<ModalRoleProps> = ({
             fullWidth
             disabled={!selected || loading}
             onClick={handleConfirm}
-            startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
+            startIcon={
+              loading ? <CircularProgress size={20} color="inherit" /> : null
+            }
             sx={{
               mt: 4,
               py: 1.5,

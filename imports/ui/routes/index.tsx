@@ -2,7 +2,7 @@ import React from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute, APP_ROUTES } from '../config';
 import { createLazyComponent } from '../performance/lazyLoader';
-import { PublicLayout, PrivateLayouts } from '../layouts';
+import { PublicLayout, BannedLayouts } from '../layouts';
 import { SuspenseWrapper } from '../components';
 
 const DesignSystemPage = createLazyComponent(() =>
@@ -90,9 +90,9 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute requireRole={false}>
         <SuspenseWrapper>
-          <PrivateLayouts>
+          <BannedLayouts>
             <SelectRolePage />
-          </PrivateLayouts>
+          </BannedLayouts>
         </SuspenseWrapper>
       </ProtectedRoute>
     ),
@@ -102,11 +102,11 @@ export const router = createBrowserRouter([
     path: APP_ROUTES.PRIVATE.DASHBOARD,
     element: (
       <ProtectedRoute>
-        <PrivateLayouts>
+        <BannedLayouts>
           <SuspenseWrapper>
             <DashboardPage />
           </SuspenseWrapper>
-        </PrivateLayouts>
+        </BannedLayouts>
       </ProtectedRoute>
     ),
   },

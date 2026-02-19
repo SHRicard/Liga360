@@ -5,8 +5,9 @@ export interface IAppMetrics {
   users: {
     total: number;
     players: number;
-    admins: number;
-    tournamentAdmins: number;
+    owners: number;
+    managers: number;
+    referees: number;
     superAdmins: number;
     online: number;
     suspended: number;

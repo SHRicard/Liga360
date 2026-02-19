@@ -9,6 +9,7 @@ import {
   MercadoPagoLogin,
   BtnTheme,
   SuspenseWrapper,
+  AnimatedLogo,
 } from './atoms';
 import { Card, FieldForm, Stepper, ModalFullScreen } from './molecules';
 import type { StepItem } from './molecules';
@@ -28,5 +29,6 @@ export {
   Stepper,
   ModalFullScreen,
   SuspenseWrapper,
+  AnimatedLogo,
 };
 export type { StepItem };

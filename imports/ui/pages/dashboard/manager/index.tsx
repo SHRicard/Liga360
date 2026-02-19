@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-export const TournamentAdminDashboard = () => {
+export const ManagerDashboard = () => {
   return (
     <Box
       sx={{
@@ -12,7 +12,7 @@ export const TournamentAdminDashboard = () => {
       }}
     >
       <Typography variant="h3" fontWeight={700}>
-        Hola, soy Tournament Admin
+        Hola, soy Manager
       </Typography>
     </Box>
   );
