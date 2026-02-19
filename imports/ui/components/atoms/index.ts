@@ -7,6 +7,8 @@ import { BtnGeneral } from './btnGeneral';
 import { GoogleLogin } from './googleLogin';
 import { MercadoPagoLogin } from './mercadoPagoLogin';
 import { BtnTheme } from './btnTheme';
+import { SuspenseWrapper } from './suspenseWrapper';
+import { AnimatedLogo } from './animatedLogo';
 
 export {
   FieldPassword,
@@ -18,4 +20,6 @@ export {
   GoogleLogin,
   MercadoPagoLogin,
   BtnTheme,
+  SuspenseWrapper,
+  AnimatedLogo,
 };

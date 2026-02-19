@@ -141,5 +141,22 @@ export const lightThemeExtended = createTheme(lightTheme, {
         hover: '#D50000',
       },
     },
+    modalFullScreen: {
+      headerBg: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%)',
+      headerTitle: '#ffffff',
+      headerSubtitle: 'rgba(255,255,255,0.75)',
+      headerOverline: 'rgba(255,255,255,0.6)',
+      contentBg: '#f8fafc',
+      cardBg: '#ffffff',
+      cardBorder: '#e2e8f0',
+      confirmBg: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%)',
+      confirmShadow: '0 4px 16px rgba(37,99,235,0.35)',
+      roles: {
+        player: { color: '#2563eb', bg: '#eff6ff' },
+        owner: { color: '#16a34a', bg: '#f0fdf4' },
+        manager: { color: '#d97706', bg: '#fffbeb' },
+        referee: { color: '#7c3aed', bg: '#f5f3ff' },
+      },
+    },
   },
 });

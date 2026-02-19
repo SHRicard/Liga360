@@ -126,6 +126,23 @@ declare module '@mui/material/styles' {
         cancel: { main: string; contrastText: string; hover?: string };
         delete: { main: string; contrastText: string; hover?: string };
       };
+      modalFullScreen: {
+        headerBg: string;
+        headerTitle: string;
+        headerSubtitle: string;
+        headerOverline: string;
+        contentBg: string;
+        cardBg: string;
+        cardBorder: string;
+        confirmBg: string;
+        confirmShadow: string;
+        roles: {
+          player: { color: string; bg: string };
+          owner: { color: string; bg: string };
+          manager: { color: string; bg: string };
+          referee: { color: string; bg: string };
+        };
+      };
     };
   }
   interface ThemeOptions {
@@ -154,6 +171,23 @@ declare module '@mui/material/styles' {
         confirm?: { main?: string; contrastText?: string; hover?: string };
         cancel?: { main?: string; contrastText?: string; hover?: string };
         delete?: { main?: string; contrastText?: string; hover?: string };
+      };
+      modalFullScreen?: {
+        headerBg?: string;
+        headerTitle?: string;
+        headerSubtitle?: string;
+        headerOverline?: string;
+        contentBg?: string;
+        cardBg?: string;
+        cardBorder?: string;
+        confirmBg?: string;
+        confirmShadow?: string;
+        roles?: {
+          player?: { color?: string; bg?: string };
+          owner?: { color?: string; bg?: string };
+          manager?: { color?: string; bg?: string };
+          referee?: { color?: string; bg?: string };
+        };
       };
     };
   }
@@ -201,6 +235,23 @@ export const darkThemeExtended = createTheme(darkTheme, {
         main: '#fc0000',
         contrastText: '#F9F9F9',
         hover: '#D50000',
+      },
+    },
+    modalFullScreen: {
+      headerBg: 'linear-gradient(135deg, #0d1b2a 0%, #1a2744 100%)',
+      headerTitle: '#ffffff',
+      headerSubtitle: 'rgba(255,255,255,0.65)',
+      headerOverline: 'rgba(144,202,249,0.7)',
+      contentBg: '#121212',
+      cardBg: '#1e1e1e',
+      cardBorder: 'rgba(255,255,255,0.08)',
+      confirmBg: 'linear-gradient(135deg, #0d1b2a 0%, #1565c0 100%)',
+      confirmShadow: '0 4px 16px rgba(144,202,249,0.25)',
+      roles: {
+        player: { color: '#90caf9', bg: 'rgba(144,202,249,0.08)' },
+        owner: { color: '#81c784', bg: 'rgba(129,199,132,0.08)' },
+        manager: { color: '#ffb74d', bg: 'rgba(255,183,77,0.08)' },
+        referee: { color: '#b39ddb', bg: 'rgba(179,157,219,0.08)' },
       },
     },
   },

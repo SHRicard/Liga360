@@ -1,6 +1,12 @@
+import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
-export type UserRole = 'player' | 'admin' | 'tournament_admin' | 'super_admin';
+export type UserRole =
+  | 'player'
+  | 'owner'
+  | 'manager'
+  | 'referee'
+  | 'super_admin';
 export type UserStatus = 'activo' | 'suspendido' | 'bloqueado';
 
 export interface IUser {
@@ -9,7 +15,7 @@ export interface IUser {
     address: string;
     verified: boolean;
   }>;
-  roles?: UserRole[];
+  role?: UserRole;
   profile?: {
     nombre?: string;
     apellido?: string;
@@ -40,4 +46,7 @@ export interface IUser {
   };
 }
 
-export const UsersCollection = new Mongo.Collection<IUser>('users');
+// Usar la colección interna de Meteor en lugar de crear una nueva
+// para evitar el error "There is already a collection named 'users'"
+export const UsersCollection =
+  Meteor.users as unknown as Mongo.Collection<IUser>;

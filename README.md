@@ -235,7 +235,7 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 - Inscribirse a torneos
 - Ver historial de partidos
 
-### Administrador de Torneo (`tournament_admin`)
+### Creador de Torneos (`manager`)
 
 - Todos los permisos de jugador
 - Crear y gestionar torneos
@@ -243,13 +243,20 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 - Programar y gestionar partidos
 - Acceso a métricas financieras propias
 
-### Administrador (`admin`)
+### Propietario (`owner`)
 
 - Moderar usuarios y contenido
 - Aprobar/rechazar torneos
 - Gestionar reportes
 - Ver métricas de la plataforma
 - Aplicar sanciones (advertencias, baneos)
+
+### Árbitro (`referee`)
+
+- Dirigir partidos asignados
+- Registrar tarjetas, goles e incidencias
+- Consultar calendario de partidos
+- Ver métricas de desempeño arbitral
 
 ### Super Administrador (`super_admin`)
 
@@ -306,7 +313,7 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 {
   _id: string;
   emails: Array<{ address: string; verified: boolean }>;
-  roles: Array<'player' | 'admin' | 'tournament_admin' | 'super_admin'>;
+  roles: Array<'player' | 'owner' | 'manager' | 'referee' | 'super_admin'>;
   profile: {
     (nombre, apellido, telefono, avatar);
     address: {
@@ -318,7 +325,7 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 }
 ```
 
-#### User Metrics (PlayerMetrics, AdminMetrics, TournamentAdminMetrics)
+#### User Metrics (PlayerMetrics, OwnerMetrics, ManagerMetrics)
 
 Estadísticas específicas por rol con métricas de desempeño
 

@@ -1,3 +1,5 @@
-export { UsersCollection } from './user.collections';
-export { MetricsCollection } from './metrics.collections';
-export { AppMetricsCollection } from './app_metrics.collections';
+import { UsersCollection } from './user.collections';
+import { AppMetricsCollection } from './app_metrics.collections';
+import { LogsCollection } from './logs.collections';
+
+export { UsersCollection, AppMetricsCollection, LogsCollection };

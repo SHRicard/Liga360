@@ -27,8 +27,8 @@ export const DesignSystemPage = () => {
     },
   });
 
-  const onSubmit = (data: any) => {
-    console.log('Datos del formulario:', data);
+  const onSubmit = (_data: any) => {
+    // TODO: handle form submit
   };
 
   return (
@@ -254,7 +254,6 @@ export const DesignSystemPage = () => {
                 <GoogleLogin
                   variant="login"
                   onSuccess={userInfo => {
-                    console.log('✅ Usuario autenticado con Google:', userInfo);
                     alert(`¡Bienvenido, ${userInfo.name}!`);
                   }}
                   onError={error => {
@@ -276,7 +275,6 @@ export const DesignSystemPage = () => {
                 <GoogleLogin
                   variant="register"
                   onSuccess={userInfo => {
-                    console.log('✅ Usuario registrado con Google:', userInfo);
                     alert(`¡Cuenta creada para ${userInfo.name}!`);
                   }}
                   onError={error => {
@@ -311,10 +309,6 @@ export const DesignSystemPage = () => {
                 <MercadoPagoLogin
                   variant="login"
                   onSuccess={userInfo => {
-                    console.log(
-                      '✅ Usuario autenticado con Mercado Pago:',
-                      userInfo
-                    );
                     alert(`¡Bienvenido desde Mercado Pago!`);
                   }}
                   onError={error => {
@@ -336,10 +330,6 @@ export const DesignSystemPage = () => {
                 <MercadoPagoLogin
                   variant="register"
                   onSuccess={userInfo => {
-                    console.log(
-                      '✅ Usuario registrado con Mercado Pago:',
-                      userInfo
-                    );
                     alert(`¡Cuenta creada en Mercado Pago!`);
                   }}
                   onError={error => {

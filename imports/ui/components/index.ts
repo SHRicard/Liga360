@@ -8,8 +8,10 @@ import {
   GoogleLogin,
   MercadoPagoLogin,
   BtnTheme,
+  SuspenseWrapper,
+  AnimatedLogo,
 } from './atoms';
-import { Card, FieldForm, Stepper } from './molecules';
+import { Card, FieldForm, Stepper, ModalFullScreen } from './molecules';
 import type { StepItem } from './molecules';
 
 export {
@@ -25,5 +27,8 @@ export {
   FieldForm,
   BtnTheme,
   Stepper,
+  ModalFullScreen,
+  SuspenseWrapper,
+  AnimatedLogo,
 };
 export type { StepItem };

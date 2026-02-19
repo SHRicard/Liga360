@@ -27,7 +27,6 @@ export const MercadoPagoLogin: React.FC<MercadoPagoLoginProps> = ({
 
   const handleMercadoPagoLogin = () => {
     setIsLoading(true);
-    console.log('💳 Mercado Pago login - Pendiente implementación');
     // TODO: Implementar lógica de autenticación con Mercado Pago
     setTimeout(() => {
       setIsLoading(false);

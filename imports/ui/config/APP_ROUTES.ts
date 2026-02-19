@@ -8,5 +8,6 @@ export const APP_ROUTES = {
   },
   PRIVATE: {
     DASHBOARD: '/dashboard',
+    SELECT_ROLE: '/select-role',
   },
 } as const;
