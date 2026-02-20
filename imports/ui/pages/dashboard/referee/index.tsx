@@ -3,14 +3,7 @@ import { Box, Typography } from '@mui/material';
 
 export const RefereeDashboard = () => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
-      }}
-    >
+    <Box>
       <Typography variant="h3" fontWeight={700}>
         Hola, soy Árbitro
       </Typography>

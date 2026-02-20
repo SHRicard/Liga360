@@ -1,3 +1,4 @@
+import React from 'react';
 import { MoonLoader } from 'react-spinners';
 import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -8,7 +9,7 @@ interface LoadingProps {
   className?: string;
 }
 
-export const Loading = ({
+export const Loading: React.FC<LoadingProps> = React.memo(({
   size = 'md',
   message = 'Cargando...',
   className = '',
@@ -69,4 +70,4 @@ export const Loading = ({
       </Box>
     </Box>
   );
-};
+});

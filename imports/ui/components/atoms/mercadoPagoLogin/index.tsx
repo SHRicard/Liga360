@@ -33,11 +33,11 @@ export const MercadoPagoLogin: React.FC<MercadoPagoLoginProps> = ({
       alert('Funcionalidad de Mercado Pago próximamente');
     }, 1000);
   };
-
+  const LOGO_SRC = '/mp.webp';
   const mercadoPagoLogo = (
     <Box
       component="img"
-      src="/idOOZRlSjd_1771354258684.jpeg"
+      src={LOGO_SRC}
       alt="Mercado Pago"
       sx={{
         width: '18px',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controller, Control, FieldValues, Path } from 'react-hook-form';
 import { TextField, InputAdornment, useTheme } from '@mui/material';
-import { Email } from '@mui/icons-material';
+import Email from '@mui/icons-material/Email';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 interface FieldEmailProps<T extends FieldValues> {

@@ -1,0 +1,135 @@
+/* ========================================
+   AnimatedLogo — Keyframes extraídos
+   ======================================== */
+
+@keyframes spin-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-ring-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px var(--glow-1),
+      0 0 40px var(--glow-2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 30px var(--glow-3),
+      0 0 60px var(--glow-4),
+      0 0 90px var(--glow-5);
+    transform: scale(1.03);
+  }
+}
+
+@keyframes float-particle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes orbit-1 {
+  0% {
+    transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg);
+  }
+}
+
+@keyframes orbit-2 {
+  0% {
+    transform: rotate(120deg) translateX(var(--orbit-r)) rotate(-120deg);
+  }
+  100% {
+    transform: rotate(480deg) translateX(var(--orbit-r)) rotate(-480deg);
+  }
+}
+
+@keyframes orbit-3 {
+  0% {
+    transform: rotate(240deg) translateX(var(--orbit-r)) rotate(-240deg);
+  }
+  100% {
+    transform: rotate(600deg) translateX(var(--orbit-r)) rotate(-600deg);
+  }
+}
+
+@keyframes orbit-4 {
+  0% {
+    transform: rotate(60deg) translateX(var(--orbit-r)) rotate(-60deg);
+  }
+  100% {
+    transform: rotate(420deg) translateX(var(--orbit-r)) rotate(-420deg);
+  }
+}
+
+@keyframes orbit-5 {
+  0% {
+    transform: rotate(180deg) translateX(var(--orbit-r)) rotate(-180deg);
+  }
+  100% {
+    transform: rotate(540deg) translateX(var(--orbit-r)) rotate(-540deg);
+  }
+}
+
+@keyframes orbit-6 {
+  0% {
+    transform: rotate(300deg) translateX(var(--orbit-r)) rotate(-300deg);
+  }
+  100% {
+    transform: rotate(660deg) translateX(var(--orbit-r)) rotate(-660deg);
+  }
+}
+
+@keyframes text-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes neon-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.8;
+  }
+  94% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.9;
+  }
+  97% {
+    opacity: 1;
+  }
+}

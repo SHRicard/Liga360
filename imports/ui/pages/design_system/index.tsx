@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
-import { AccountCircle, Delete } from '@mui/icons-material';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Delete from '@mui/icons-material/Delete';
 import { useForm } from 'react-hook-form';
 import {
   FieldPassword,

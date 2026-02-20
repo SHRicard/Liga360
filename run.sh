@@ -3,7 +3,6 @@
 # Liga360 - Script de inicio
 # Configuración
 APP_NAME="Liga360"
-LOG_FILE="/tmp/meteor_${APP_NAME}.log"
 
 # Colores
 GREEN='\033[0;32m'
@@ -33,38 +32,61 @@ echo -e "${GREEN}==========================================${NC}"
 cleanup_port 3000
 cleanup_port 8080
 
-# Iniciar aplicación
-> $LOG_FILE
-npm start > $LOG_FILE 2>&1 &
+# Archivo temporal para capturar el log
+LOG_FILE="/tmp/meteor_${APP_NAME}.log"
+> "$LOG_FILE"
+
+# Trap para limpieza al salir
+cleanup() {
+    echo -e "\n${RED}Deteniendo $APP_NAME...${NC}"
+    kill $METEOR_PID 2>/dev/null
+    wait $METEOR_PID 2>/dev/null
+    echo -e "${GREEN}$APP_NAME detenido.${NC}"
+    exit 0
+}
+trap cleanup INT TERM
+
+# Iniciar Meteor redirigiendo output al log
+echo -e "${BLUE}Compilando...${NC}"
+npm start > "$LOG_FILE" 2>&1 &
 METEOR_PID=$!
 
-echo -e "${BLUE}Esperando compilación...${NC}"
-
-# Esperar a que esté lista
+# Esperar a que compile o falle
 while true; do
-    if grep -q "App running at" $LOG_FILE 2>/dev/null; then
-        echo -e "${BLUE}==========================================${NC}"
-        echo -e "${BLUE}Aplicación iniciada correctamente${NC}"
-        echo -e "${BLUE}Frontend: http://localhost:3000${NC}"
-        echo -e "${BLUE}Backend:  http://localhost:8080${NC}"
-        echo -e "${BLUE}==========================================${NC}"
-        echo -e "${RED}Presiona Ctrl+C para detener${NC}"
-        break
-    fi    
+    # Si el proceso murió, mostrar error
     if ! kill -0 $METEOR_PID 2>/dev/null; then
-        echo "Error al iniciar la aplicación"
-        echo "Log: $LOG_FILE"
+        clear
+        echo -e "${RED}==========================================${NC}"
+        echo -e "${RED}  ERROR al iniciar $APP_NAME${NC}"
+        echo -e "${RED}==========================================${NC}"
+        echo ""
+        cat "$LOG_FILE"
         exit 1
     fi
-    
+
+    # Si la app arrancó, limpiar pantalla y mostrar info
+    if grep -q "App running at" "$LOG_FILE" 2>/dev/null; then
+        clear
+        echo -e "${GREEN}==========================================${NC}"
+        echo -e "${GREEN}  $WHITE$APP_NAME$GREEN corriendo correctamente ✓${NC}"
+        echo -e "${GREEN}==========================================${NC}"
+        echo ""
+        echo -e "  ${BLUE}▸ Frontend:${NC}  ${WHITE}http://localhost:3000${NC}"
+        echo -e "  ${BLUE}▸ Backend:${NC}   ${WHITE}http://localhost:8080${NC}"
+        echo ""
+        echo -e "${GREEN}==========================================${NC}"
+        echo -e "  ${RED}Ctrl+C${NC} para detener"
+        echo -e "${GREEN}==========================================${NC}"
+        echo ""
+        break
+    fi
+
     sleep 1
 done
 
-# Mostrar log en tiempo real filtrando líneas internas de Meteor
-trap "echo 'Deteniendo $APP_NAME...'; kill $METEOR_PID 2>/dev/null; exit 0" INT TERM
-tail -f $LOG_FILE | grep -v --line-buffered '^=>' &
+# Mostrar logs en tiempo real a partir de ahora (cambios, errores, HMR, etc.)
+tail -f "$LOG_FILE" --pid=$METEOR_PID 2>/dev/null &
 TAIL_PID=$!
 
-# Esperar a que el proceso meteor termine
 wait $METEOR_PID
 kill $TAIL_PID 2>/dev/null

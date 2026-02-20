@@ -8,7 +8,7 @@ export interface ILog {
   userId: string;
   action: LogAction;
   timestamp: Date;
-  data?: any;
+  data?: Record<string, unknown>;
   ip?: string;
   userAgent?: string;
   status?: 'success' | 'error';

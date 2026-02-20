@@ -100,6 +100,14 @@ export const lightTheme = createTheme({
 // Aplicar colores personalizados al tema light
 export const lightThemeExtended = createTheme(lightTheme, {
   custom: {
+    menu: {
+      background: '#ffffff',
+      backgroundImage: 'none',
+      text: 'rgba(0,0,0,0.87)',
+      border: 'rgba(0,0,0,0.12)',
+      divider: 'rgba(0,0,0,0.1)',
+      shadow: '0 2px 8px rgba(0,0,0,0.08)',
+    },
     input: {
       background: '#fff',
       border: 'rgba(0, 0, 0, 0.23)',
@@ -157,6 +165,53 @@ export const lightThemeExtended = createTheme(lightTheme, {
         manager: { color: '#d97706', bg: '#fffbeb' },
         referee: { color: '#7c3aed', bg: '#f5f3ff' },
       },
+    },
+    layout: {
+      topBar: {
+        background: 'rgba(255, 255, 255, 0.72)',
+        border: 'rgba(0, 0, 0, 0.06)',
+      },
+      dock: {
+        background: 'rgba(255, 255, 255, 0.65)',
+        border: 'rgba(0, 0, 0, 0.08)',
+        shadow: '0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06)',
+        activeBg: 'rgba(0, 137, 123, 0.12)',
+        activeColor: '#00897B',
+        activeDot: '#00897B',
+        activeDotGlow: '0 0 8px rgba(0, 137, 123, 0.6)',
+        hoverBg: 'rgba(0, 0, 0, 0.06)',
+      },
+      tooltip: {
+        background: 'rgba(0, 0, 0, 0.85)',
+        color: '#fff',
+      },
+      popover: {
+        background: 'rgba(255, 255, 255, 0.88)',
+        border: 'rgba(0, 0, 0, 0.08)',
+        shadow: '0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)',
+      },
+      overlay: {
+        background: 'rgba(255, 255, 255, 0.92)',
+      },
+      spotlight: {
+        pillBg: 'rgba(0, 0, 0, 0.04)',
+        pillBorder: 'rgba(0, 0, 0, 0.06)',
+        pillHoverBg: 'rgba(0, 0, 0, 0.06)',
+        pillHoverBorder: 'rgba(0, 0, 0, 0.12)',
+        barBg: 'rgba(255, 255, 255, 0.85)',
+        barBorder: 'rgba(0, 0, 0, 0.1)',
+        barShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+        kbdBg: 'rgba(0, 0, 0, 0.06)',
+        kbdBorder: 'rgba(0, 0, 0, 0.08)',
+      },
+      hoverBg: 'rgba(0, 0, 0, 0.04)',
+      activeBg: 'rgba(0, 0, 0, 0.07)',
+      notification: {
+        badgeBg: '#ef4444',
+        badgeShadow: '0 0 8px rgba(239, 68, 68, 0.4)',
+        unreadBg: 'rgba(25, 118, 210, 0.04)',
+      },
+      logoutHoverBg: 'rgba(220, 38, 38, 0.06)',
     },
   },
 });

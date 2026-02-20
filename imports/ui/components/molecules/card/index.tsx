@@ -21,106 +21,110 @@ interface CardProps extends Omit<MuiCardProps, 'title'> {
   logoSize?: number | string;
 }
 
-export const Card: React.FC<CardProps> = ({
-  title,
-  subtitle,
-  children,
-  headerAction,
-  elevation = 3,
-  padding = 3,
-  noPadding = false,
-  logo,
-  logoPosition = 'start',
-  logoSize = 48,
-  sx,
-  ...props
-}) => {
-  const getLogoJustifyContent = () => {
-    switch (logoPosition) {
-      case 'center':
-        return 'center';
-      case 'end':
-        return 'flex-end';
-      default:
-        return 'flex-start';
-    }
-  };
+export const Card: React.FC<CardProps> = React.memo(
+  ({
+    title,
+    subtitle,
+    children,
+    headerAction,
+    elevation = 3,
+    padding = 3,
+    noPadding = false,
+    logo,
+    logoPosition = 'start',
+    logoSize = 48,
+    sx,
+    ...props
+  }) => {
+    const getLogoJustifyContent = () => {
+      switch (logoPosition) {
+        case 'center':
+          return 'center';
+        case 'end':
+          return 'flex-end';
+        default:
+          return 'flex-start';
+      }
+    };
 
-  return (
-    <MuiCard
-      elevation={elevation}
-      sx={{
-        borderRadius: 1,
-        backgroundColor: 'background.paper',
-        transition: 'all 0.3s ease',
-        '&:hover': {
-          boxShadow: theme =>
-            theme.palette.mode === 'dark'
-              ? '0 8px 24px rgba(0, 0, 0, 0.4)'
-              : '0 8px 24px rgba(0, 0, 0, 0.12)',
-        },
-        ...sx,
-      }}
-      {...props}
-    >
-      {logo && (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: getLogoJustifyContent(),
-            alignItems: 'center',
-            p: 2,
-            borderBottom: theme =>
-              title || subtitle || headerAction
-                ? 'none'
-                : `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)'}`,
-          }}
-        >
-          <img
-            src={logo}
-            alt="Logo"
-            style={{
-              width: typeof logoSize === 'number' ? `${logoSize}px` : logoSize,
-              height: typeof logoSize === 'number' ? `${logoSize}px` : logoSize,
-              objectFit: 'contain',
+    return (
+      <MuiCard
+        elevation={elevation}
+        sx={{
+          borderRadius: 1,
+          backgroundColor: 'background.paper',
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            boxShadow: theme =>
+              theme.palette.mode === 'dark'
+                ? '0 8px 24px rgba(0, 0, 0, 0.4)'
+                : '0 8px 24px rgba(0, 0, 0, 0.12)',
+          },
+          ...sx,
+        }}
+        {...props}
+      >
+        {logo && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: getLogoJustifyContent(),
+              alignItems: 'center',
+              p: 2,
+              borderBottom: theme =>
+                title || subtitle || headerAction
+                  ? 'none'
+                  : `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)'}`,
+            }}
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                width:
+                  typeof logoSize === 'number' ? `${logoSize}px` : logoSize,
+                height:
+                  typeof logoSize === 'number' ? `${logoSize}px` : logoSize,
+                objectFit: 'contain',
+              }}
+            />
+          </Box>
+        )}
+        {(title || subtitle || headerAction) && (
+          <CardHeader
+            title={
+              title && (
+                <Typography variant="h6" component="h2" fontWeight={600}>
+                  {title}
+                </Typography>
+              )
+            }
+            subheader={
+              subtitle && (
+                <Typography variant="body2" color="text.secondary">
+                  {subtitle}
+                </Typography>
+              )
+            }
+            action={headerAction}
+            sx={{
+              borderBottom: theme =>
+                `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)'}`,
+              pb: 2,
             }}
           />
-        </Box>
-      )}
-      {(title || subtitle || headerAction) && (
-        <CardHeader
-          title={
-            title && (
-              <Typography variant="h6" component="h2" fontWeight={600}>
-                {title}
-              </Typography>
-            )
-          }
-          subheader={
-            subtitle && (
-              <Typography variant="body2" color="text.secondary">
-                {subtitle}
-              </Typography>
-            )
-          }
-          action={headerAction}
+        )}
+        <CardContent
           sx={{
-            borderBottom: theme =>
-              `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)'}`,
-            pb: 2,
+            p: noPadding ? 0 : padding,
+            '&:last-child': {
+              pb: noPadding ? 0 : padding,
+            },
           }}
-        />
-      )}
-      <CardContent
-        sx={{
-          p: noPadding ? 0 : padding,
-          '&:last-child': {
-            pb: noPadding ? 0 : padding,
-          },
-        }}
-      >
-        {children}
-      </CardContent>
-    </MuiCard>
-  );
-};
+        >
+          {children}
+        </CardContent>
+      </MuiCard>
+    );
+  }
+);

@@ -1,13 +1,19 @@
 import { Meteor } from 'meteor/meteor';
 import { ServiceConfiguration } from 'meteor/service-configuration';
 import { useRegisterUser } from '/imports/api';
+import '/server/rateLimiter';
+import '/server/cronJobs';
 
-// Publica el campo `role` del usuario autenticado al cliente
 Meteor.publish('users.currentRole', function () {
   if (!this.userId) {
-    return this.ready();
+    this.ready();
+    return;
   }
-  return Meteor.users.find({ _id: this.userId }, { fields: { role: 1 } });
+  this.onStop(() => {});
+  return Meteor.users.find(
+    { _id: this.userId },
+    { fields: { role: 1 }, limit: 1 }
+  );
 });
 
 Meteor.startup(async () => {

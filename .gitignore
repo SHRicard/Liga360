@@ -8,3 +8,6 @@ _build
 .env
 # Settings with sensitive data
 settings.json
+
+# Prompts with sensitive data
+.prompts

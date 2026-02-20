@@ -9,6 +9,7 @@ import { MercadoPagoLogin } from './mercadoPagoLogin';
 import { BtnTheme } from './btnTheme';
 import { SuspenseWrapper } from './suspenseWrapper';
 import { AnimatedLogo } from './animatedLogo';
+import { AnimatedLiga360 } from './animatedLiga360';
 
 export {
   FieldPassword,
@@ -22,4 +23,5 @@ export {
   BtnTheme,
   SuspenseWrapper,
   AnimatedLogo,
+  AnimatedLiga360,
 };

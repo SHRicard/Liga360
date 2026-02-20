@@ -1,5 +1,6 @@
 import { defineConfig } from '@meteorjs/rspack';
 import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 
 /**
  * Rspack configuration for Meteor projects.
@@ -12,9 +13,26 @@ import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
  * Use these flags to adjust your build settings based on environment.
  */
 export default defineConfig(Meteor => {
+  const plugins: any[] = [];
+
+  if (Meteor.isProduction) {
+    plugins.push(new TsCheckerRspackPlugin());
+  }
+
+  // Bundle analyzer: ejecutar con ANALYZE=true meteor build ...
+  if (process.env.ANALYZE === 'true') {
+    plugins.push(
+      new RsdoctorRspackPlugin({
+        // Genera reporte interactivo en el navegador
+        supports: {
+          generateTileGraph: true,
+        },
+      })
+    );
+  }
+
   return {
-    // Solo type checking en producción
-    plugins: Meteor.isProduction ? [new TsCheckerRspackPlugin()] : [],
+    plugins,
 
     // Configuración de módulos
     module: {

@@ -2,7 +2,7 @@ import React from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute, APP_ROUTES } from '../config';
 import { createLazyComponent } from '../performance/lazyLoader';
-import { PublicLayout, BannedLayouts } from '../layouts';
+import { PublicLayout, BannedLayouts, PrivateLayouts } from '../layouts';
 import { SuspenseWrapper } from '../components';
 
 const DesignSystemPage = createLazyComponent(() =>
@@ -33,14 +33,14 @@ const SelectRolePage = createLazyComponent(() =>
   import('../pages/select_role').then(m => ({ default: m.SelectRolePage }))
 );
 
+const InstitutionsPage = createLazyComponent(() =>
+  import('../pages/institutions').then(m => ({ default: m.InstitutionsPage }))
+);
+
 export const router = createBrowserRouter([
   {
     // Layout público con rutas anidadas
-    element: (
-      <SuspenseWrapper>
-        <PublicLayout />
-      </SuspenseWrapper>
-    ),
+    element: <PublicLayout />,
     children: [
       {
         path: APP_ROUTES.PUBLIC.DESIGN_SYSTEM,
@@ -102,11 +102,24 @@ export const router = createBrowserRouter([
     path: APP_ROUTES.PRIVATE.DASHBOARD,
     element: (
       <ProtectedRoute>
-        <BannedLayouts>
-          <SuspenseWrapper>
+        <SuspenseWrapper>
+          <PrivateLayouts>
             <DashboardPage />
-          </SuspenseWrapper>
-        </BannedLayouts>
+          </PrivateLayouts>
+        </SuspenseWrapper>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    // Ruta privada - instituciones (owner)
+    path: APP_ROUTES.PRIVATE.INSTITUTIONS,
+    element: (
+      <ProtectedRoute>
+        <SuspenseWrapper>
+          <PrivateLayouts>
+            <InstitutionsPage />
+          </PrivateLayouts>
+        </SuspenseWrapper>
       </ProtectedRoute>
     ),
   },

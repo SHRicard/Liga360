@@ -64,7 +64,7 @@ export const SelectRolePage = () => {
           boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)',
         }}
       >
-        <AnimatedLogo size={50} />
+        <AnimatedLogo size={80} />
         <Typography
           variant="h5"
           fontWeight={800}

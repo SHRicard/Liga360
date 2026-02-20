@@ -101,6 +101,14 @@ export const darkTheme = createTheme({
 declare module '@mui/material/styles' {
   interface Theme {
     custom: {
+      menu: {
+        background: string;
+        backgroundImage: string;
+        text: string;
+        border: string;
+        divider: string;
+        shadow: string;
+      };
       loading: {
         color: string;
       };
@@ -143,10 +151,65 @@ declare module '@mui/material/styles' {
           referee: { color: string; bg: string };
         };
       };
+      layout: {
+        topBar: {
+          background: string;
+          border: string;
+        };
+        dock: {
+          background: string;
+          border: string;
+          shadow: string;
+          activeBg: string;
+          activeColor: string;
+          activeDot: string;
+          activeDotGlow: string;
+          hoverBg: string;
+        };
+        tooltip: {
+          background: string;
+          color: string;
+        };
+        popover: {
+          background: string;
+          border: string;
+          shadow: string;
+        };
+        overlay: {
+          background: string;
+        };
+        spotlight: {
+          pillBg: string;
+          pillBorder: string;
+          pillHoverBg: string;
+          pillHoverBorder: string;
+          barBg: string;
+          barBorder: string;
+          barShadow: string;
+          kbdBg: string;
+          kbdBorder: string;
+        };
+        hoverBg: string;
+        activeBg: string;
+        notification: {
+          badgeBg: string;
+          badgeShadow: string;
+          unreadBg: string;
+        };
+        logoutHoverBg: string;
+      };
     };
   }
   interface ThemeOptions {
     custom?: {
+      menu?: {
+        background?: string;
+        backgroundImage?: string;
+        text?: string;
+        border?: string;
+        divider?: string;
+        shadow?: string;
+      };
       input?: {
         background?: string;
         border?: string;
@@ -189,6 +252,53 @@ declare module '@mui/material/styles' {
           referee?: { color?: string; bg?: string };
         };
       };
+      layout?: {
+        topBar?: {
+          background?: string;
+          border?: string;
+        };
+        dock?: {
+          background?: string;
+          border?: string;
+          shadow?: string;
+          activeBg?: string;
+          activeColor?: string;
+          activeDot?: string;
+          activeDotGlow?: string;
+          hoverBg?: string;
+        };
+        tooltip?: {
+          background?: string;
+          color?: string;
+        };
+        popover?: {
+          background?: string;
+          border?: string;
+          shadow?: string;
+        };
+        overlay?: {
+          background?: string;
+        };
+        spotlight?: {
+          pillBg?: string;
+          pillBorder?: string;
+          pillHoverBg?: string;
+          pillHoverBorder?: string;
+          barBg?: string;
+          barBorder?: string;
+          barShadow?: string;
+          kbdBg?: string;
+          kbdBorder?: string;
+        };
+        hoverBg?: string;
+        activeBg?: string;
+        notification?: {
+          badgeBg?: string;
+          badgeShadow?: string;
+          unreadBg?: string;
+        };
+        logoutHoverBg?: string;
+      };
     };
   }
 }
@@ -196,6 +306,14 @@ declare module '@mui/material/styles' {
 // Aplicar colores personalizados al tema dark
 export const darkThemeExtended = createTheme(darkTheme, {
   custom: {
+    menu: {
+      background: '#212122',
+      backgroundImage: 'none',
+      text: '#ffffff',
+      border: 'rgba(255,255,255,0.08)',
+      divider: 'rgba(255,255,255,0.1)',
+      shadow: '0 2px 8px rgba(0,0,0,0.4)',
+    },
     input: {
       background: '#1e1e1e',
       border: 'rgba(255, 255, 255, 0.23)',
@@ -253,6 +371,53 @@ export const darkThemeExtended = createTheme(darkTheme, {
         manager: { color: '#ffb74d', bg: 'rgba(255,183,77,0.08)' },
         referee: { color: '#b39ddb', bg: 'rgba(179,157,219,0.08)' },
       },
+    },
+    layout: {
+      topBar: {
+        background: 'rgba(18, 18, 18, 0.72)',
+        border: 'rgba(255, 255, 255, 0.06)',
+      },
+      dock: {
+        background: 'rgba(30, 30, 30, 0.60)',
+        border: 'rgba(255, 255, 255, 0.08)',
+        shadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2)',
+        activeBg: 'rgba(38, 166, 154, 0.14)',
+        activeColor: '#26A69A',
+        activeDot: '#26A69A',
+        activeDotGlow: '0 0 8px rgba(38, 166, 154, 0.6)',
+        hoverBg: 'rgba(255, 255, 255, 0.08)',
+      },
+      tooltip: {
+        background: 'rgba(255, 255, 255, 0.92)',
+        color: '#000',
+      },
+      popover: {
+        background: 'rgba(30, 30, 30, 0.88)',
+        border: 'rgba(255, 255, 255, 0.08)',
+        shadow: '0 12px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3)',
+      },
+      overlay: {
+        background: 'rgba(10, 10, 10, 0.92)',
+      },
+      spotlight: {
+        pillBg: 'rgba(255, 255, 255, 0.06)',
+        pillBorder: 'rgba(255, 255, 255, 0.06)',
+        pillHoverBg: 'rgba(255, 255, 255, 0.08)',
+        pillHoverBorder: 'rgba(255, 255, 255, 0.12)',
+        barBg: 'rgba(30, 30, 30, 0.85)',
+        barBorder: 'rgba(255, 255, 255, 0.1)',
+        barShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
+        kbdBg: 'rgba(255, 255, 255, 0.08)',
+        kbdBorder: 'rgba(255, 255, 255, 0.08)',
+      },
+      hoverBg: 'rgba(255, 255, 255, 0.06)',
+      activeBg: 'rgba(255, 255, 255, 0.1)',
+      notification: {
+        badgeBg: '#ef4444',
+        badgeShadow: '0 0 8px rgba(239, 68, 68, 0.4)',
+        unreadBg: 'rgba(144, 202, 249, 0.04)',
+      },
+      logoutHoverBg: 'rgba(220, 38, 38, 0.1)',
     },
   },
 });

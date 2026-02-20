@@ -26,10 +26,6 @@
     "paths": {
       /* Support absolute /imports/* with a leading '/' */
       "/*": ["*"],
-      /* Custom type overrides for specific Meteor packages */
-      "meteor/mdg:validated-method": [
-        "imports/types/meteor-mdg-validated-method.d.ts"
-      ],
       /* Pull in type declarations for Meteor packages from either zodern:types or @types/meteor packages */
       "meteor/*": [
         "node_modules/@types/meteor/*",

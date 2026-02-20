@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Tooltip } from '@mui/material';
-import { WbSunny, DarkMode } from '@mui/icons-material';
+import WbSunny from '@mui/icons-material/WbSunny';
+import DarkMode from '@mui/icons-material/DarkMode';
 import { useThemeContext } from '../../../hooks/ThemeContext';
 
 export const BtnTheme = () => {
