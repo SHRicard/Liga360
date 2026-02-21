@@ -41,13 +41,14 @@ export const PrivateLayouts: React.FC<PrivateLayoutsProps> = ({
     });
   }, [clearUser, navigate]);
 
+  const gradientClass =
+    theme.palette.mode === 'light'
+      ? 'layout-gradient-light'
+      : 'layout-gradient-dark';
+
   return (
     <Box
-      className={
-        theme.palette.mode === 'light'
-          ? 'layout-canvas-light'
-          : 'layout-canvas-dark'
-      }
+      className={gradientClass}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -64,7 +65,7 @@ export const PrivateLayouts: React.FC<PrivateLayoutsProps> = ({
           marginTop: `${TOPBAR_HEIGHT}px`,
           pb: `${DOCK_HEIGHT + 28}px`,
           px: { xs: 2, sm: 3, md: 5 },
-          pt: { xs: 2, md: 3 },
+          pt: { xs: 0.8, md: 1 },
           '&::-webkit-scrollbar': {
             width: 6,
           },

@@ -2,6 +2,7 @@ import { FieldPassword } from './fielPassword';
 import { FieldEmail } from './fielEmail';
 import { FieldText } from './fielText';
 import { FieldArea } from './fielArea';
+import { FieldLogo } from './fielLogo';
 import { Loading } from './loading';
 import { BtnGeneral } from './btnGeneral';
 import { GoogleLogin } from './googleLogin';
@@ -16,6 +17,7 @@ export {
   FieldEmail,
   FieldText,
   FieldArea,
+  FieldLogo,
   Loading,
   BtnGeneral,
   GoogleLogin,

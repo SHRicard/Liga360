@@ -52,13 +52,13 @@ export const Card: React.FC<CardProps> = React.memo(
         elevation={elevation}
         sx={{
           borderRadius: 1,
-          backgroundColor: 'background.paper',
+          backgroundColor: theme => theme.custom.card.background,
+          backgroundImage: 'none',
+          border: theme => `1px solid ${theme.custom.card.border}`,
+          boxShadow: theme => theme.custom.card.shadow,
           transition: 'all 0.3s ease',
           '&:hover': {
-            boxShadow: theme =>
-              theme.palette.mode === 'dark'
-                ? '0 8px 24px rgba(0, 0, 0, 0.4)'
-                : '0 8px 24px rgba(0, 0, 0, 0.12)',
+            boxShadow: theme => theme.custom.card.shadowHover,
           },
           ...sx,
         }}

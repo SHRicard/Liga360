@@ -3,6 +3,7 @@ import {
   FieldEmail,
   FieldText,
   FieldArea,
+  FieldLogo,
   Loading,
   BtnGeneral,
   GoogleLogin,
@@ -11,14 +12,30 @@ import {
   SuspenseWrapper,
   AnimatedLogo,
 } from './atoms';
-import { Card, FieldForm, Stepper, ModalFullScreen } from './molecules';
-import type { StepItem } from './molecules';
+import {
+  Card,
+  FieldForm,
+  Stepper,
+  StepperHorizontal,
+  StepperHorizontalContent,
+  StepperHorizontalButtons,
+  ModalFullScreen,
+  CardInstitucion360,
+  CardSede360,
+} from './molecules';
+import type {
+  StepItem,
+  HorizontalStepItem,
+  CardInstitucion360Props,
+  CardSede360Props,
+} from './molecules';
 
 export {
   FieldPassword,
   FieldEmail,
   FieldText,
   FieldArea,
+  FieldLogo,
   Loading,
   BtnGeneral,
   GoogleLogin,
@@ -27,8 +44,18 @@ export {
   FieldForm,
   BtnTheme,
   Stepper,
+  StepperHorizontal,
+  StepperHorizontalContent,
+  StepperHorizontalButtons,
   ModalFullScreen,
   SuspenseWrapper,
   AnimatedLogo,
+  CardInstitucion360,
+  CardSede360,
 };
-export type { StepItem };
+export type {
+  StepItem,
+  HorizontalStepItem,
+  CardInstitucion360Props,
+  CardSede360Props,
+};

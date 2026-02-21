@@ -1,23 +1,51 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import React, { useState } from 'react';
+import { Box } from '@mui/material';
+import { WelcomeCard } from './WelcomeCard';
+import { CreateInstitutionForm } from './CreateInstitutionForm';
+import { InstitutionDashboard } from './InstitutionDashboard';
+
+type OwnerView = 'welcome' | 'creating' | 'dashboard';
+
+interface InstitutionData {
+  institutionName: string;
+  branchName: string;
+}
 
 export const OwnerInstitutions = () => {
+  const [view, setView] = useState<OwnerView>('welcome');
+  const [institutionData, setInstitutionData] =
+    useState<InstitutionData | null>(null);
+
+  const handleStart = () => setView('creating');
+
+  const handleCancel = () => setView('welcome');
+
+  const handleFinish = (data: any) => {
+    console.log('📦 Datos a enviar:', data);
+    setInstitutionData({
+      institutionName: data.institutionName,
+      branchName: data.branchName,
+    });
+    setView('dashboard');
+  };
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '60vh',
-        gap: 2,
-      }}
-    >
-      <AddLocationAltIcon sx={{ fontSize: 64, color: 'primary.main' }} />
-      <Typography variant="h4" fontWeight={700}>
-        Crear Institución
-      </Typography>
+    <Box>
+      {view === 'welcome' && <WelcomeCard onStart={handleStart} />}
+
+      {view === 'creating' && (
+        <CreateInstitutionForm
+          onFinish={handleFinish}
+          onCancel={handleCancel}
+        />
+      )}
+
+      {view === 'dashboard' && institutionData && (
+        <InstitutionDashboard
+          institutionName={institutionData.institutionName}
+          branchName={institutionData.branchName}
+        />
+      )}
     </Box>
   );
 };
