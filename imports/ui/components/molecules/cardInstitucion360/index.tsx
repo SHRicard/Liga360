@@ -517,50 +517,108 @@ export const CardInstitucion360: React.FC<CardInstitucion360Props> = ({
         </Box>
 
         {/* ═══════════════════════════════
-            CONTACTO — Teléfono (mini)
+            ESTADÍSTICAS — Sedes & Canchas
+            (Estilo FIFA UT stat badges)
            ═══════════════════════════════ */}
-        {hasPhone && (
+        <Box
+          sx={{
+            position: 'relative',
+            zIndex: 2,
+            mx: 2,
+            mb: 0.5,
+            px: 1.5,
+            py: 1.2,
+            borderRadius: '12px',
+            bgcolor: c360.panelBg,
+            border: `1px solid ${alpha(c360.accent.main, 0.18)}`,
+            backdropFilter: 'blur(10px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 0,
+          }}
+        >
+          {/* Sedes */}
           <Box
             sx={{
-              position: 'relative',
-              zIndex: 2,
-              mx: 2,
-              mb: 0.5,
-              px: 1.8,
-              py: 0.8,
-              borderRadius: '10px',
-              bgcolor: c360.panelBg,
-              border: `1px solid ${alpha(c360.accent.main, 0.15)}`,
-              backdropFilter: 'blur(10px)',
+              flex: 1,
               display: 'flex',
+              flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'center',
-              gap: 0.6,
+              gap: 0.2,
             }}
           >
             <Typography
               sx={{
-                fontSize: 8,
-                fontWeight: 800,
-                letterSpacing: 2,
-                textTransform: 'uppercase',
-                color: c360.accent.main,
+                fontFamily: '"Bebas Neue","Anton","DIN Condensed",sans-serif',
+                fontSize: 26,
+                fontWeight: 900,
+                color: c360.statValue,
+                lineHeight: 1,
+                textShadow: `0 0 12px ${alpha(c360.accent.main, 0.25)}`,
               }}
             >
-              Contacto
+              3
             </Typography>
             <Typography
               sx={{
-                fontSize: 10,
-                fontWeight: 600,
-                color: c360.statValue,
-                letterSpacing: 0.5,
+                fontSize: 7,
+                fontWeight: 800,
+                letterSpacing: 2.5,
+                textTransform: 'uppercase',
+                color: c360.accent.main,
+                lineHeight: 1,
               }}
             >
-              {phone}
+              Sedes
             </Typography>
           </Box>
-        )}
+
+          {/* Separador vertical */}
+          <Box
+            sx={{
+              width: '1px',
+              height: 32,
+              background: `linear-gradient(180deg, transparent, ${alpha(c360.accent.main, 0.4)}, transparent)`,
+            }}
+          />
+
+          {/* Canchas */}
+          <Box
+            sx={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 0.2,
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: '"Bebas Neue","Anton","DIN Condensed",sans-serif',
+                fontSize: 26,
+                fontWeight: 900,
+                color: c360.statValue,
+                lineHeight: 1,
+                textShadow: `0 0 12px ${alpha(c360.accent.main, 0.25)}`,
+              }}
+            >
+              12
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: 7,
+                fontWeight: 800,
+                letterSpacing: 2.5,
+                textTransform: 'uppercase',
+                color: c360.accent.main,
+                lineHeight: 1,
+              }}
+            >
+              Canchas
+            </Typography>
+          </Box>
+        </Box>
 
         {/* ═══════════════════════════════
             FOOTER — Branding

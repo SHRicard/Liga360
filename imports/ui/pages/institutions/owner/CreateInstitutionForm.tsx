@@ -1,302 +1,254 @@
-import React, { useState } from 'react';
-import { Box, Typography, Stack } from '@mui/material';
+import React from 'react';
+import { Box, Typography, Stack, alpha, useTheme } from '@mui/material';
 import { useForm, useWatch } from 'react-hook-form';
 import BusinessIcon from '@mui/icons-material/Business';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
-import MapIcon from '@mui/icons-material/Map';
-import LocationCityIcon from '@mui/icons-material/LocationCity';
-import SignpostIcon from '@mui/icons-material/Signpost';
-import PhoneIcon from '@mui/icons-material/Phone';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {
   Card,
   FieldText,
   FieldArea,
   FieldLogo,
-  StepperHorizontal,
-  StepperHorizontalButtons,
+  BtnGeneral,
   CardInstitucion360,
-  CardSede360,
 } from '../../../components';
-import type { HorizontalStepItem } from '../../../components';
 
 interface ICreateInstitutionForm {
   institutionName: string;
   description: string;
-  phone: string;
   logo: File | null;
-  branchName: string;
-  address: string;
-  betweenStreets: string;
-  zipCode: string;
-  district: string;
-  city: string;
 }
 
 interface CreateInstitutionFormProps {
   onFinish: (data: ICreateInstitutionForm) => void;
-  onCancel: () => void;
 }
 
 export const CreateInstitutionForm: React.FC<CreateInstitutionFormProps> = ({
   onFinish,
-  onCancel,
 }) => {
-  const [activeStep, setActiveStep] = useState(0);
+  const theme = useTheme();
 
-  const { control, handleSubmit, trigger } = useForm<ICreateInstitutionForm>({
+  const { control, handleSubmit } = useForm<ICreateInstitutionForm>({
     defaultValues: {
-      institutionName: 'Alummni',
-      description:
-        'Alummni es un club de fútbol para chicos y grandes, con canchas de 5 vs 5 y 11 vs 11. Un espacio para entrenar, competir y disfrutar del deporte en comunidad.',
-      phone: '1132716458',
+      institutionName: '',
+      description: '',
       logo: null,
-      branchName: 'zona 0',
-      address: 'riglos 3879',
-      betweenStreets: 'juan b. justo',
-      zipCode: '1759',
-      district: 'la Matanza',
-      city: 'Gonzales catan',
     },
     mode: 'onChange',
   });
 
   const formValues = useWatch({ control });
 
-  const handleNext = async () => {
-    let isValid = false;
-    if (activeStep === 0) {
-      isValid = await trigger(['institutionName']);
-    } else if (activeStep === 1) {
-      isValid = await trigger([
-        'branchName',
-        'address',
-        'zipCode',
-        'district',
-        'city',
-      ]);
-    } else {
-      isValid = true;
-    }
-    if (isValid) {
-      setActiveStep(prev => Math.min(prev + 1, 2));
-    }
-  };
+  return (
+    <Stack spacing={1.5} sx={{ width: '100%' }}>
+      <Card padding={1.5}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 2,
+            flexDirection: { xs: 'column', sm: 'row' },
+          }}
+        >
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              lineHeight: 1.6,
+              flex: 1,
+              textAlign: { xs: 'center', sm: 'left' },
+            }}
+          >
+            Empezá creando tu <strong>institución</strong>. Una vez creada,
+            podrás agregar <strong>sedes</strong> y dentro de cada sede
+            configurar las <strong>canchas</strong> disponibles.
+          </Typography>
 
-  const handleBack = () => {
-    if (activeStep === 0) {
-      onCancel();
-    } else {
-      setActiveStep(prev => prev - 1);
-    }
-  };
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1.2,
+              flexShrink: 0,
+              px: 2,
+              py: 0.8,
+              borderRadius: 2,
+              bgcolor: alpha(theme.palette.primary.main, 0.05),
+              border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
+            }}
+          >
+            {[
+              {
+                icon: <AccountBalanceIcon sx={{ fontSize: 20 }} />,
+                label: 'Institución',
+                active: true,
+              },
+              {
+                icon: <MapsHomeWorkIcon sx={{ fontSize: 20 }} />,
+                label: 'Sedes',
+                active: false,
+              },
+              {
+                icon: <SportsSoccerIcon sx={{ fontSize: 20 }} />,
+                label: 'Canchas',
+                active: false,
+              },
+            ].map((item, i) => (
+              <React.Fragment key={item.label}>
+                {i > 0 && (
+                  <ArrowForwardIcon
+                    sx={{
+                      fontSize: 12,
+                      color: alpha(theme.palette.text.disabled, 0.5),
+                    }}
+                  />
+                )}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 0.3,
+                    opacity: item.active ? 1 : 0.45,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      color: item.active ? 'primary.main' : 'text.secondary',
+                      display: 'flex',
+                    }}
+                  >
+                    {item.icon}
+                  </Box>
+                  <Typography
+                    variant="caption"
+                    fontWeight={item.active ? 800 : 600}
+                    color={item.active ? 'primary.main' : 'text.secondary'}
+                    sx={{ fontSize: 9, letterSpacing: 0.5 }}
+                  >
+                    {item.label}
+                  </Typography>
+                </Box>
+              </React.Fragment>
+            ))}
+          </Box>
+        </Box>
+      </Card>
 
-  const handleFinishStep = () => {
-    handleSubmit(onFinish)();
-  };
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 2,
+          width: '100%',
+          alignItems: 'stretch',
+          flexDirection: { xs: 'column', md: 'row' },
+        }}
+      >
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onFinish)}
+          sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+        >
+          <Card
+            padding={2}
+            sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+          >
+            <Typography
+              variant="caption"
+              fontWeight={700}
+              color="primary.main"
+              sx={{
+                textTransform: 'uppercase',
+                letterSpacing: 0.5,
+                mb: 1.5,
+                display: 'block',
+              }}
+            >
+              Tu Institución
+            </Typography>
+            <Stack spacing={1.5} sx={{ flex: 1 }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: { xs: 2, sm: 4 },
+                  alignItems: 'center',
+                  flexDirection: { xs: 'column', sm: 'row' },
+                }}
+              >
+                <Box sx={{ flexShrink: 0 }}>
+                  <FieldLogo
+                    name="logo"
+                    control={control}
+                    label=""
+                    size="medium"
+                    previewSize={120}
+                  />
+                </Box>
+                <Stack spacing={3} sx={{ flex: 1, minWidth: 0 }}>
+                  <FieldText
+                    name="institutionName"
+                    control={control}
+                    label="Nombre"
+                    placeholder="Ej: Club Deportivo Norte"
+                    fullWidth
+                    size="small"
+                    icon={<BusinessIcon />}
+                    required
+                    minLength={3}
+                    maxLength={60}
+                  />
+                  <FieldArea
+                    name="description"
+                    control={control}
+                    label="Descripción (opcional)"
+                    placeholder="Contanos sobre tu institución..."
+                    size="small"
+                    rows={4}
+                    maxLength={200}
+                  />
+                </Stack>
+              </Box>
+            </Stack>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                gap: 1.5,
+                mt: 2,
+              }}
+            >
+              <BtnGeneral
+                type="confirm"
+                variant="contained"
+                size="small"
+                htmlType="submit"
+                icon={<AccountBalanceIcon sx={{ fontSize: 18 }} />}
+              >
+                Crear Institución
+              </BtnGeneral>
+            </Box>
+          </Card>
+        </Box>
 
-  const steps: HorizontalStepItem[] = [
-    {
-      label: 'Tu Institución',
-      icon: <BusinessIcon />,
-      content: (
-        <Stack spacing={1.5} alignItems="center">
-          <FieldLogo
-            name="logo"
-            control={control}
-            label=""
-            size="medium"
-            previewSize={64}
-          />
-          <FieldText
-            name="institutionName"
-            control={control}
-            label="Nombre"
-            placeholder="Ej: Club Deportivo Norte"
-            fullWidth
-            size="small"
-            icon={<BusinessIcon />}
-            required
-            minLength={3}
-            maxLength={60}
-          />
-          <FieldArea
-            name="description"
-            control={control}
-            label="Descripción (opcional)"
-            placeholder="Contanos sobre tu institución..."
-            size="small"
-            rows={2}
-            maxLength={200}
-          />
-          <FieldText
-            name="phone"
-            control={control}
-            label="Teléfono (opcional)"
-            placeholder="Ej: 11 1234-5678"
-            fullWidth
-            size="small"
-            icon={<PhoneIcon />}
-            maxLength={20}
-          />
-        </Stack>
-      ),
-    },
-    {
-      label: 'Primera Sede',
-      icon: <LocationOnIcon />,
-      content: (
-        <Stack spacing={1.5}>
-          <FieldText
-            name="branchName"
-            control={control}
-            label="Nombre de la sede"
-            placeholder="Ej: Sede Central"
-            fullWidth
-            size="small"
-            icon={<BusinessIcon />}
-            required
-            minLength={3}
-            maxLength={60}
-          />
-          <FieldText
-            name="address"
-            control={control}
-            label="Dirección"
-            placeholder="Calle y número"
-            fullWidth
-            size="small"
-            icon={<LocationOnIcon />}
-            required
-          />
-          <FieldText
-            name="betweenStreets"
-            control={control}
-            label="Entre calles (opcional)"
-            placeholder="Ej: Juan B. Justo y Av. Cristianía"
-            fullWidth
-            size="small"
-            icon={<SignpostIcon />}
-          />
-          <FieldText
-            name="city"
-            control={control}
-            label="Ciudad / Localidad"
-            placeholder="Ej: González Catán"
-            fullWidth
-            size="small"
-            icon={<LocationCityIcon />}
-            required
-          />
-          <FieldText
-            name="district"
-            control={control}
-            label="Partido"
-            placeholder="Ej: La Matanza"
-            fullWidth
-            size="small"
-            icon={<MapIcon />}
-            required
-          />
-          <FieldText
-            name="zipCode"
-            control={control}
-            label="Código Postal"
-            placeholder="Ej: 1759"
-            fullWidth
-            size="small"
-            icon={<MarkunreadMailboxIcon />}
-            required
-          />
-        </Stack>
-      ),
-    },
-    {
-      label: '',
-      icon: <CheckCircleOutlineIcon />,
-      content: (
-        <Stack spacing={1.5}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: { xs: 'center', md: 'flex-start' },
+            justifyContent: 'center',
+            flexShrink: 0,
+            minWidth: 350,
+          }}
+        >
           <CardInstitucion360
             institutionName={formValues?.institutionName}
             description={formValues?.description}
-            phone={formValues?.phone}
             logo={formValues?.logo}
             skeleton
           />
-          <CardSede360
-            branchName={formValues?.branchName}
-            address={formValues?.address}
-            betweenStreets={formValues?.betweenStreets}
-            zipCode={formValues?.zipCode}
-            district={formValues?.district}
-            city={formValues?.city}
-            phone={formValues?.phone}
-            logo={formValues?.logo}
-            skeleton
-          />
-        </Stack>
-      ),
-    },
-  ];
-
-  return (
-    <Box sx={{ width: '100%' }}>
-      <form onSubmit={handleSubmit(onFinish)}>
-        <Stack spacing={1.5}>
-          {/* Stepper header */}
-          <Card>
-            <StepperHorizontal steps={steps} activeStep={activeStep} />
-          </Card>
-
-          {/* Todas las secciones lado a lado */}
-          <Stack direction="row" spacing={1.5} alignItems="flex-start">
-            {steps.map((step, index) => (
-              <Card
-                key={step.label}
-                sx={{
-                  flex: 1,
-                  opacity: index <= activeStep ? 1 : 0.4,
-                  pointerEvents: index <= activeStep ? 'auto' : 'none',
-                  transition: 'opacity 0.3s ease',
-                }}
-                padding={2}
-              >
-                <Typography
-                  variant="caption"
-                  fontWeight={700}
-                  color={
-                    index === activeStep ? 'primary.main' : 'text.secondary'
-                  }
-                  sx={{
-                    textTransform: 'uppercase',
-                    letterSpacing: 0.5,
-                    mb: 1.5,
-                    display: 'block',
-                  }}
-                >
-                  {step.label}
-                </Typography>
-                {step.content}
-              </Card>
-            ))}
-          </Stack>
-
-          {/* Botones */}
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <StepperHorizontalButtons
-              activeStep={activeStep}
-              totalSteps={steps.length}
-              onNext={handleNext}
-              onBack={handleBack}
-              onFinish={handleFinishStep}
-              nextButtonText="Siguiente"
-              backButtonText={activeStep === 0 ? 'Cancelar' : 'Atrás'}
-              finishButtonText="Crear Institución"
-            />
-          </Box>
-        </Stack>
-      </form>
-    </Box>
+        </Box>
+      </Box>
+    </Stack>
   );
 };

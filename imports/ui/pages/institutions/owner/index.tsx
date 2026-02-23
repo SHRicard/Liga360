@@ -1,49 +1,71 @@
 import React, { useState } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Box } from '@mui/material';
-import { WelcomeCard } from './WelcomeCard';
 import { CreateInstitutionForm } from './CreateInstitutionForm';
 import { InstitutionDashboard } from './InstitutionDashboard';
-
-type OwnerView = 'welcome' | 'creating' | 'dashboard';
-
-interface InstitutionData {
-  institutionName: string;
-  branchName: string;
-}
+import { useInstitutionStore } from '../../../contexts';
+import { Loading } from '../../../components';
+import { fileToBase64 } from '../../../helpers';
 
 export const OwnerInstitutions = () => {
-  const [view, setView] = useState<OwnerView>('welcome');
-  const [institutionData, setInstitutionData] =
-    useState<InstitutionData | null>(null);
+  const institutions = useInstitutionStore(s => s.institutions);
+  const isLoading = useInstitutionStore(s => s.isLoading);
+  const [isCreating, setIsCreating] = useState(false);
 
-  const handleStart = () => setView('creating');
+  const hasInstitution = institutions.length > 0;
+  const institution = hasInstitution ? institutions[0] : null;
 
-  const handleCancel = () => setView('welcome');
+  if (isLoading || isCreating) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '100vh',
+        }}
+      >
+        <Loading
+          size="lg"
+          message={isCreating ? 'Creando institución...' : 'Cargando...'}
+        />
+      </Box>
+    );
+  }
 
-  const handleFinish = (data: any) => {
-    console.log('📦 Datos a enviar:', data);
-    setInstitutionData({
-      institutionName: data.institutionName,
-      branchName: data.branchName,
-    });
-    setView('dashboard');
+  const handleFinish = async (data: {
+    institutionName: string;
+    description: string;
+    logo: File | null;
+  }) => {
+    try {
+      setIsCreating(true);
+
+      const logoBase64 = data.logo ? await fileToBase64(data.logo) : undefined;
+
+      await Meteor.callAsync('institutions.create', {
+        name: data.institutionName,
+        description: data.description || undefined,
+        logoBase64,
+      });
+
+      // El store se actualiza solo vía pub/sub tras la inserción
+    } catch (error: any) {
+      console.error('Error al crear institución:', error);
+      alert(error?.reason ?? 'Error al crear la institución');
+    } finally {
+      setIsCreating(false);
+    }
   };
 
   return (
     <Box>
-      {view === 'welcome' && <WelcomeCard onStart={handleStart} />}
+      {!hasInstitution && <CreateInstitutionForm onFinish={handleFinish} />}
 
-      {view === 'creating' && (
-        <CreateInstitutionForm
-          onFinish={handleFinish}
-          onCancel={handleCancel}
-        />
-      )}
-
-      {view === 'dashboard' && institutionData && (
+      {hasInstitution && institution && (
         <InstitutionDashboard
-          institutionName={institutionData.institutionName}
-          branchName={institutionData.branchName}
+          institutionName={institution.name}
+          branchName="Sede principal"
         />
       )}
     </Box>

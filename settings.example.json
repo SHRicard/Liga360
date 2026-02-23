@@ -6,6 +6,11 @@
         "google": {
             "clientSecret": "TU_GOOGLE_CLIENT_SECRET"
         },
-        "note": "El clientSecret solo se usa en el servidor, nunca en el cliente"
+        "cloudinary": {
+            "cloudName": "TU_CLOUD_NAME",
+            "apiKey": "TU_CLOUDINARY_API_KEY",
+            "apiSecret": "TU_CLOUDINARY_API_SECRET"
+        },
+        "note": "El clientSecret y las credenciales de Cloudinary solo se usan en el servidor, nunca en el cliente"
     }
 }
