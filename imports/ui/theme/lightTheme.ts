@@ -161,7 +161,6 @@ export const lightThemeExtended = createTheme(lightTheme, {
       confirmShadow: '0 4px 16px rgba(37,99,235,0.35)',
       roles: {
         player: { color: '#2563eb', bg: '#eff6ff' },
-        owner: { color: '#16a34a', bg: '#f0fdf4' },
         manager: { color: '#d97706', bg: '#fffbeb' },
         referee: { color: '#7c3aed', bg: '#f5f3ff' },
       },

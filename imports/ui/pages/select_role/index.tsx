@@ -15,7 +15,6 @@ import { AnimatedLogo } from '../../components/atoms/animatedLogo';
 
 const ROLE_ICONS: Record<string, React.ReactElement> = {
   player: <PersonIcon sx={{ fontSize: 36 }} />,
-  owner: <StadiumIcon sx={{ fontSize: 36 }} />,
   manager: <EmojiEventsIcon sx={{ fontSize: 36 }} />,
   referee: <SportsIcon sx={{ fontSize: 36 }} />,
 };
@@ -108,10 +107,14 @@ export const SelectRolePage = () => {
             sx={{
               display: 'grid',
               gridTemplateColumns: {
-                xs: 'repeat(2, 1fr)',
-                md: 'repeat(4, 1fr)',
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)',
               },
-              gap: 2,
+              gap: 3,
+              width: '100%',
+              maxWidth: 900,
+              mx: 'auto',
             }}
           >
             {AVAILABLE_ROLES.map(role => {
@@ -128,8 +131,8 @@ export const SelectRolePage = () => {
                   sx={{
                     p: { xs: 2, sm: 3 },
                     cursor: loading ? 'not-allowed' : 'pointer',
-                    borderRadius: 1,
-                    border: '1px solid',
+                    borderRadius: 2,
+                    border: '2px solid',
                     borderColor: isSelected
                       ? roleColors.color
                       : theme.custom.card.border,
@@ -146,6 +149,9 @@ export const SelectRolePage = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     minHeight: { xs: 180, sm: 220 },
+                    width: '100%',
+                    maxWidth: 340,
+                    mx: 'auto',
                     '&:hover': loading
                       ? {}
                       : {

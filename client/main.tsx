@@ -1,12 +1,11 @@
 import { createRoot } from 'react-dom/client';
 import { Meteor } from 'meteor/meteor';
 import { App } from '/imports/ui/App';
-import { initUserStore, initInstitutionStore } from '/imports/ui/contexts';
+import { initUserStore } from '/imports/ui/contexts';
 
 Meteor.startup(() => {
   // Inicializa los stores globales (Tracker.autorun, fuera de React)
   initUserStore();
-  initInstitutionStore();
 
   const container = document.getElementById('react-target');
   const root = createRoot(container!);

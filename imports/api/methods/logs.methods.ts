@@ -60,8 +60,8 @@ Meteor.methods({
 
     const user = await Meteor.users.findOneAsync({ _id: this.userId });
     const userRole = (user as any)?.role;
-
-    if (!['owner', 'super_admin'].includes(userRole)) {
+    // Si no es super_admin, denegar
+    if (userRole !== 'super_admin') {
       await LogHelper.logError(
         this.userId,
         'logs.getByAction',
@@ -73,9 +73,7 @@ Meteor.methods({
         'No tiene permisos para realizar esta acción'
       );
     }
-
     const logs = await LogHelper.getLogsByAction(action, finalLimit);
-
     return logs;
   },
 

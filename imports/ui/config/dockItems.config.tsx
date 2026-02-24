@@ -1,6 +1,6 @@
 import React from 'react';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { APP_ROUTES } from './APP_ROUTES';
 import type { Role } from './ROLE';
 import type { DockItem } from '../components/molecules/floatingDock';
@@ -17,11 +17,11 @@ const ITEMS = {
     icon: <DashboardRoundedIcon />,
     path: APP_ROUTES.PRIVATE.DASHBOARD,
   },
-  instituciones: {
-    id: 'instituciones',
-    label: 'Instituciones',
-    icon: <AddLocationAltIcon />,
-    path: APP_ROUTES.PRIVATE.INSTITUTIONS,
+  tournament: {
+    id: 'tournament',
+    label: 'Torneos',
+    icon: <EmojiEventsIcon />,
+    path: APP_ROUTES.PRIVATE.TOURNAMENT,
   },
 } as const satisfies Record<string, DockItem>;
 
@@ -31,11 +31,10 @@ const ITEMS = {
    ═══════════════════════════════════════════════════ */
 
 export const DOCK_ITEMS_BY_ROLE: Record<Role, DockItem[]> = {
-  player: [ITEMS.inicio],
-  owner: [ITEMS.inicio, ITEMS.instituciones],
-  manager: [ITEMS.inicio],
-  referee: [ITEMS.inicio],
-  super_admin: [ITEMS.inicio],
+  player: [ITEMS.inicio, ITEMS.tournament],
+  manager: [ITEMS.inicio, ITEMS.tournament],
+  referee: [ITEMS.inicio, ITEMS.tournament],
+  super_admin: [ITEMS.inicio, ITEMS.tournament],
 };
 
 /** Fallback cuando no hay rol asignado */

@@ -20,13 +20,11 @@ import {
   StepperHorizontalContent,
   StepperHorizontalButtons,
   ModalFullScreen,
-  CardInstitucion360,
   CardSede360,
 } from './molecules';
 import type {
   StepItem,
   HorizontalStepItem,
-  CardInstitucion360Props,
   CardSede360Props,
 } from './molecules';
 
@@ -50,12 +48,10 @@ export {
   ModalFullScreen,
   SuspenseWrapper,
   AnimatedLogo,
-  CardInstitucion360,
   CardSede360,
 };
 export type {
   StepItem,
   HorizontalStepItem,
-  CardInstitucion360Props,
   CardSede360Props,
 };

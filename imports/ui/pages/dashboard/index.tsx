@@ -5,9 +5,6 @@ import { ROLE } from '../../config';
 import { useUserStore } from '../../contexts/useStore/userStore';
 
 // Lazy-load: solo se descarga el dashboard del rol activo
-const OwnerDashboard = createLazyComponent(() =>
-  import('./owner').then(m => ({ default: m.OwnerDashboard }))
-);
 const PlayerDashboard = createLazyComponent(() =>
   import('./player').then(m => ({ default: m.PlayerDashboard }))
 );
@@ -28,9 +25,6 @@ export const DashboardPage = () => {
     switch (user?.role) {
       case ROLE.SUPER_ADMIN:
         return <SuperAdminDashboard />;
-
-      case ROLE.OWNER:
-        return <OwnerDashboard />;
 
       case ROLE.MANAGER:
         return <ManagerDashboard />;

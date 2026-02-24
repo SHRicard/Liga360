@@ -33,8 +33,8 @@ const SelectRolePage = createLazyComponent(() =>
   import('../pages/select_role').then(m => ({ default: m.SelectRolePage }))
 );
 
-const InstitutionsPage = createLazyComponent(() =>
-  import('../pages/institutions').then(m => ({ default: m.InstitutionsPage }))
+const TournamentPage = createLazyComponent(() =>
+  import('../pages/tournament').then(m => ({ default: m.TournamentPage }))
 );
 
 export const router = createBrowserRouter([
@@ -111,13 +111,13 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    // Ruta privada - instituciones (owner)
-    path: APP_ROUTES.PRIVATE.INSTITUTIONS,
+    // Ruta privada - torneos (solo super_admin)
+    path: APP_ROUTES.PRIVATE.TOURNAMENT,
     element: (
       <ProtectedRoute>
         <SuspenseWrapper>
           <PrivateLayouts>
-            <InstitutionsPage />
+            <TournamentPage />
           </PrivateLayouts>
         </SuspenseWrapper>
       </ProtectedRoute>

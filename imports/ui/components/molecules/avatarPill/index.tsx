@@ -15,22 +15,12 @@ import { useUserStore } from '../../../contexts';
 import type { Role } from '../../../config';
 
 /* ── Mapeo de roles a colores y labels ── */
-const ROLE_CONFIG: Record<Role, { label: string; color: string; bg: string }> =
-  {
-    player: { label: 'Jugador', color: '#2563eb', bg: 'rgba(37,99,235,0.1)' },
-    owner: {
-      label: 'Institución',
-      color: '#16a34a',
-      bg: 'rgba(22,163,74,0.1)',
-    },
-    manager: { label: 'Manager', color: '#d97706', bg: 'rgba(217,119,6,0.1)' },
-    referee: { label: 'Árbitro', color: '#7c3aed', bg: 'rgba(124,58,237,0.1)' },
-    super_admin: {
-      label: 'Admin',
-      color: '#dc2626',
-      bg: 'rgba(220,38,38,0.1)',
-    },
-  };
+const ROLE_CONFIG: Record<Role, { label: string; color: string; bg: string }> = {
+  player: { label: 'Jugador', color: '#2563eb', bg: 'rgba(37,99,235,0.1)' },
+  manager: { label: 'Manager', color: '#d97706', bg: 'rgba(217,119,6,0.1)' },
+  referee: { label: 'Árbitro', color: '#7c3aed', bg: 'rgba(124,58,237,0.1)' },
+  super_admin: { label: 'Admin', color: '#dc2626', bg: 'rgba(220,38,38,0.1)' },
+};
 
 interface AvatarPillProps {
   onProfile?: () => void;

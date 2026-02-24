@@ -60,9 +60,7 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
 
 /* ───────── Step Icon estilizado ───────── */
 
-const ColorlibStepIconRoot = styled('div')<{
-  ownerState: { completed?: boolean; active?: boolean };
-}>(({ theme }) => ({
+const ColorlibStepIconRoot = styled('div')<{}>(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === 'dark'
       ? 'rgba(255,255,255,0.08)'
@@ -81,8 +79,6 @@ const ColorlibStepIconRoot = styled('div')<{
   transition: 'all 0.3s ease',
   variants: [
     {
-      props: ({ ownerState }: { ownerState: { active?: boolean } }) =>
-        ownerState.active,
       style: {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
@@ -90,8 +86,6 @@ const ColorlibStepIconRoot = styled('div')<{
       },
     },
     {
-      props: ({ ownerState }: { ownerState: { completed?: boolean } }) =>
-        ownerState.completed,
       style: {
         backgroundColor: theme.palette.success.main,
         color: '#fff',
@@ -110,10 +104,7 @@ export const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
     (icons: Record<string, React.ReactElement>) => (props: StepIconProps) => {
       const { active, completed, className } = props;
       return (
-        <ColorlibStepIconRoot
-          ownerState={{ completed, active }}
-          className={className}
-        >
+        <ColorlibStepIconRoot className={className}>
           {completed ? (
             <Check sx={{ fontSize: 13 }} />
           ) : (

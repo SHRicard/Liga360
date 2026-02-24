@@ -17,8 +17,6 @@ import { AvatarPill } from './avatarPill';
 import { NotificationBell } from './notificationBell';
 import type { NotificationItem } from './notificationBell';
 
-import { CardInstitucion360 } from './cardInstitucion360';
-import type { CardInstitucion360Props } from './cardInstitucion360';
 import { CardSede360 } from './cardSede360';
 import type { CardSede360Props } from './cardSede360';
 
@@ -37,7 +35,6 @@ export {
   SpotlightSearch,
   AvatarPill,
   NotificationBell,
-  CardInstitucion360,
   CardSede360,
 };
 export type {
@@ -45,6 +42,5 @@ export type {
   HorizontalStepItem,
   DockItem,
   NotificationItem,
-  CardInstitucion360Props,
   CardSede360Props,
 };
