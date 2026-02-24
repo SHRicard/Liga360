@@ -9,6 +9,6 @@ export const APP_ROUTES = {
   PRIVATE: {
     DASHBOARD: '/panel',
     SELECT_ROLE: '/seleccionar-rol',
-    INSTITUTIONS: '/instituciones',
+    TOURNAMENT: '/torneos',
   },
 } as const;

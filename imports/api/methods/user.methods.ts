@@ -5,7 +5,7 @@ import { LogHelper } from '../helpers/log.helper';
 
 // ── Schemas de validación ──
 const UpdateRoleSchema = z.object({
-  role: z.enum(['player', 'owner', 'manager', 'referee']),
+  role: z.enum(['player', 'manager', 'referee']),
 });
 
 Meteor.methods({

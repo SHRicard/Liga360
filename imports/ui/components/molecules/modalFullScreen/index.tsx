@@ -29,7 +29,6 @@ interface ModalRoleProps {
 
 const ROLE_ICONS: Record<string, React.ReactElement> = {
   player: <PersonIcon sx={{ fontSize: 36 }} />,
-  owner: <StadiumIcon sx={{ fontSize: 36 }} />,
   manager: <EmojiEventsIcon sx={{ fontSize: 36 }} />,
   referee: <SportsIcon sx={{ fontSize: 36 }} />,
 };

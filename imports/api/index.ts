@@ -6,10 +6,8 @@ export {
   UsersCollection,
   AppMetricsCollection,
   LogsCollection,
-  InstitutionsCollection,
   BranchesCollection,
 } from './collections';
-export type { IInstitution } from './collections';
 
 // Métodos (se registran por side-effect al importar)
 import './methods';
