@@ -23,7 +23,7 @@ export const darkTheme = createTheme({
     },
     background: {
       default: '#121212',
-      paper: '#1e1e1e',
+      paper: '#141414',
     },
     text: {
       primary: '#fff',
@@ -101,6 +101,14 @@ export const darkTheme = createTheme({
 declare module '@mui/material/styles' {
   interface Theme {
     custom: {
+      menu: {
+        background: string;
+        backgroundImage: string;
+        text: string;
+        border: string;
+        divider: string;
+        shadow: string;
+      };
       loading: {
         color: string;
       };
@@ -138,15 +146,98 @@ declare module '@mui/material/styles' {
         confirmShadow: string;
         roles: {
           player: { color: string; bg: string };
-          owner: { color: string; bg: string };
           manager: { color: string; bg: string };
           referee: { color: string; bg: string };
         };
+      };
+      layout: {
+        topBar: {
+          background: string;
+          border: string;
+        };
+        dock: {
+          background: string;
+          border: string;
+          shadow: string;
+          activeBg: string;
+          activeColor: string;
+          activeDot: string;
+          activeDotGlow: string;
+          hoverBg: string;
+        };
+        tooltip: {
+          background: string;
+          color: string;
+        };
+        popover: {
+          background: string;
+          border: string;
+          shadow: string;
+        };
+        overlay: {
+          background: string;
+        };
+        spotlight: {
+          pillBg: string;
+          pillBorder: string;
+          pillHoverBg: string;
+          pillHoverBorder: string;
+          barBg: string;
+          barBorder: string;
+          barShadow: string;
+          kbdBg: string;
+          kbdBorder: string;
+        };
+        hoverBg: string;
+        activeBg: string;
+        notification: {
+          badgeBg: string;
+          badgeShadow: string;
+          unreadBg: string;
+        };
+        logoutHoverBg: string;
+      };
+      cards360: {
+        accent: {
+          light: string;
+          main: string;
+          dark: string;
+          shine: string;
+          text: string;
+          muted: string;
+        };
+        bg: {
+          primary: string;
+          surface: string;
+          elevated: string;
+          border: string;
+          gradientEnd: string;
+        };
+        shadow: string;
+        innerBorder: string;
+        skeletonBg: string;
+        hexPattern: { opacity: number; strokeWidth: string };
+        title: { color: string; shadow: string };
+        headerName: string;
+        description: string;
+        statLabel: string;
+        statValue: string;
+        panelBg: string;
+        logoBg: string;
+        footer: { line: string; text: string };
       };
     };
   }
   interface ThemeOptions {
     custom?: {
+      menu?: {
+        background?: string;
+        backgroundImage?: string;
+        text?: string;
+        border?: string;
+        divider?: string;
+        shadow?: string;
+      };
       input?: {
         background?: string;
         border?: string;
@@ -184,10 +275,85 @@ declare module '@mui/material/styles' {
         confirmShadow?: string;
         roles?: {
           player?: { color?: string; bg?: string };
-          owner?: { color?: string; bg?: string };
           manager?: { color?: string; bg?: string };
           referee?: { color?: string; bg?: string };
         };
+      };
+      layout?: {
+        topBar?: {
+          background?: string;
+          border?: string;
+        };
+        dock?: {
+          background?: string;
+          border?: string;
+          shadow?: string;
+          activeBg?: string;
+          activeColor?: string;
+          activeDot?: string;
+          activeDotGlow?: string;
+          hoverBg?: string;
+        };
+        tooltip?: {
+          background?: string;
+          color?: string;
+        };
+        popover?: {
+          background?: string;
+          border?: string;
+          shadow?: string;
+        };
+        overlay?: {
+          background?: string;
+        };
+        spotlight?: {
+          pillBg?: string;
+          pillBorder?: string;
+          pillHoverBg?: string;
+          pillHoverBorder?: string;
+          barBg?: string;
+          barBorder?: string;
+          barShadow?: string;
+          kbdBg?: string;
+          kbdBorder?: string;
+        };
+        hoverBg?: string;
+        activeBg?: string;
+        notification?: {
+          badgeBg?: string;
+          badgeShadow?: string;
+          unreadBg?: string;
+        };
+        logoutHoverBg?: string;
+      };
+      cards360?: {
+        accent?: {
+          light?: string;
+          main?: string;
+          dark?: string;
+          shine?: string;
+          text?: string;
+          muted?: string;
+        };
+        bg?: {
+          primary?: string;
+          surface?: string;
+          elevated?: string;
+          border?: string;
+          gradientEnd?: string;
+        };
+        shadow?: string;
+        innerBorder?: string;
+        skeletonBg?: string;
+        hexPattern?: { opacity?: number; strokeWidth?: string };
+        title?: { color?: string; shadow?: string };
+        headerName?: string;
+        description?: string;
+        statLabel?: string;
+        statValue?: string;
+        panelBg?: string;
+        logoBg?: string;
+        footer?: { line?: string; text?: string };
       };
     };
   }
@@ -196,8 +362,16 @@ declare module '@mui/material/styles' {
 // Aplicar colores personalizados al tema dark
 export const darkThemeExtended = createTheme(darkTheme, {
   custom: {
+    menu: {
+      background: '#141414',
+      backgroundImage: 'none',
+      text: '#ffffff',
+      border: 'rgba(255,255,255,0.08)',
+      divider: 'rgba(255,255,255,0.1)',
+      shadow: '0 2px 8px rgba(0,0,0,0.4)',
+    },
     input: {
-      background: '#1e1e1e',
+      background: '#141414',
       border: 'rgba(255, 255, 255, 0.23)',
       borderFocus: '#26C6DA',
       borderError: '#fc0000',
@@ -207,10 +381,10 @@ export const darkThemeExtended = createTheme(darkTheme, {
       iconColorError: '#fc0000',
     },
     card: {
-      background: '#1e1e1e',
-      border: 'rgba(255, 255, 255, 0.08)',
-      shadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-      shadowHover: '0 8px 24px rgba(0, 0, 0, 0.4)',
+      background: '#141414',
+      border: 'rgba(255, 255, 255, 0.06)',
+      shadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+      shadowHover: '0 8px 24px rgba(0, 0, 0, 0.5)',
     },
     loading: {
       color: '#00ACC1',
@@ -242,16 +416,95 @@ export const darkThemeExtended = createTheme(darkTheme, {
       headerTitle: '#ffffff',
       headerSubtitle: 'rgba(255,255,255,0.65)',
       headerOverline: 'rgba(144,202,249,0.7)',
-      contentBg: '#121212',
-      cardBg: '#1e1e1e',
+      contentBg: '#141414',
+      cardBg: '#141414',
       cardBorder: 'rgba(255,255,255,0.08)',
       confirmBg: 'linear-gradient(135deg, #0d1b2a 0%, #1565c0 100%)',
       confirmShadow: '0 4px 16px rgba(144,202,249,0.25)',
       roles: {
         player: { color: '#90caf9', bg: 'rgba(144,202,249,0.08)' },
-        owner: { color: '#81c784', bg: 'rgba(129,199,132,0.08)' },
         manager: { color: '#ffb74d', bg: 'rgba(255,183,77,0.08)' },
         referee: { color: '#b39ddb', bg: 'rgba(179,157,219,0.08)' },
+      },
+    },
+    layout: {
+      topBar: {
+        background: 'rgba(18, 18, 18, 0.72)',
+        border: 'rgba(255, 255, 255, 0.06)',
+      },
+      dock: {
+        background: 'rgba(20, 20, 20, 0.60)',
+        border: 'rgba(255, 255, 255, 0.08)',
+        shadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2)',
+        activeBg: 'rgba(38, 166, 154, 0.14)',
+        activeColor: '#26A69A',
+        activeDot: '#26A69A',
+        activeDotGlow: '0 0 8px rgba(38, 166, 154, 0.6)',
+        hoverBg: 'rgba(255, 255, 255, 0.08)',
+      },
+      tooltip: {
+        background: 'rgba(255, 255, 255, 0.92)',
+        color: '#000',
+      },
+      popover: {
+        background: 'rgba(20, 20, 20, 0.88)',
+        border: 'rgba(255, 255, 255, 0.08)',
+        shadow: '0 12px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3)',
+      },
+      overlay: {
+        background: 'rgba(10, 10, 10, 0.92)',
+      },
+      spotlight: {
+        pillBg: 'rgba(255, 255, 255, 0.06)',
+        pillBorder: 'rgba(255, 255, 255, 0.06)',
+        pillHoverBg: 'rgba(255, 255, 255, 0.08)',
+        pillHoverBorder: 'rgba(255, 255, 255, 0.12)',
+        barBg: 'rgba(20, 20, 20, 0.85)',
+        barBorder: 'rgba(255, 255, 255, 0.1)',
+        barShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
+        kbdBg: 'rgba(255, 255, 255, 0.08)',
+        kbdBorder: 'rgba(255, 255, 255, 0.08)',
+      },
+      hoverBg: 'rgba(255, 255, 255, 0.06)',
+      activeBg: 'rgba(255, 255, 255, 0.1)',
+      notification: {
+        badgeBg: '#ef4444',
+        badgeShadow: '0 0 8px rgba(239, 68, 68, 0.4)',
+        unreadBg: 'rgba(144, 202, 249, 0.04)',
+      },
+      logoutHoverBg: 'rgba(220, 38, 38, 0.1)',
+    },
+    cards360: {
+      accent: {
+        light: '#ffe17a',
+        main: '#d4a843',
+        dark: '#a67c2e',
+        shine: '#f7e8a0',
+        text: '#ffe082',
+        muted: 'rgba(255,224,130,0.45)',
+      },
+      bg: {
+        primary: '#0d0d0d',
+        surface: '#161616',
+        elevated: '#1e1e1e',
+        border: 'rgba(212,168,67,0.22)',
+        gradientEnd: '#050505',
+      },
+      shadow:
+        '0 2px 8px rgba(0,0,0,0.5), 0 12px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(212,168,67,0.08)',
+      innerBorder: 'rgba(212,168,67,0.08)',
+      skeletonBg: 'rgba(255,255,255,0.06)',
+      hexPattern: { opacity: 0.09, strokeWidth: '1' },
+      title: { color: '#fff', shadow: '0 2px 10px rgba(0,0,0,0.5)' },
+      headerName: 'rgba(247,232,160,0.6)',
+      description: 'rgba(255,255,255,0.45)',
+      statLabel: 'rgba(255,224,130,0.45)',
+      statValue: '#e0e0e0',
+      panelBg: 'rgba(0,0,0,0.35)',
+      logoBg: '#0d0d0d',
+      footer: {
+        line: 'rgba(212,168,67,0.2)',
+        text: 'rgba(212,168,67,0.35)',
       },
     },
   },

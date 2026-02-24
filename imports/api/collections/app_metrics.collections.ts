@@ -5,7 +5,6 @@ export interface IAppMetrics {
   users: {
     total: number;
     players: number;
-    owners: number;
     managers: number;
     referees: number;
     superAdmins: number;

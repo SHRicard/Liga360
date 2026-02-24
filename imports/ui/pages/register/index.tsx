@@ -4,13 +4,11 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useForm, useWatch } from 'react-hook-form';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import {
-  Person,
-  Badge,
-  SportsSoccer,
-  Groups,
-  TrendingUp,
-} from '@mui/icons-material';
+import Person from '@mui/icons-material/Person';
+import Badge from '@mui/icons-material/Badge';
+import SportsSoccer from '@mui/icons-material/SportsSoccer';
+import Groups from '@mui/icons-material/Groups';
+import TrendingUp from '@mui/icons-material/TrendingUp';
 import {
   Card,
   FieldText,
@@ -346,7 +344,7 @@ export const RegisterPage = () => {
                   ¿Ya tienes cuenta?{' '}
                   <Link
                     component={RouterLink}
-                    to="/login"
+                    to={APP_ROUTES.PUBLIC.LOGIN}
                     sx={{
                       textDecoration: 'none',
                       color: 'primary.main',

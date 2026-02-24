@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Alert, Chip } from '@mui/material';
+import { Box, Typography, Alert } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import PersonIcon from '@mui/icons-material/Person';
 import StadiumIcon from '@mui/icons-material/Stadium';
@@ -15,7 +15,6 @@ import { AnimatedLogo } from '../../components/atoms/animatedLogo';
 
 const ROLE_ICONS: Record<string, React.ReactElement> = {
   player: <PersonIcon sx={{ fontSize: 36 }} />,
-  owner: <StadiumIcon sx={{ fontSize: 36 }} />,
   manager: <EmojiEventsIcon sx={{ fontSize: 36 }} />,
   referee: <SportsIcon sx={{ fontSize: 36 }} />,
 };
@@ -57,14 +56,15 @@ export const SelectRolePage = () => {
           mt: { xs: 2, sm: 3 },
           mb: 2,
           borderRadius: 1,
-          background: 'rgba(255, 255, 255, 0.03)',
+          background: theme.custom.card.background,
+          backgroundImage: 'none',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)',
+          border: `1px solid ${theme.custom.card.border}`,
+          boxShadow: theme.custom.card.shadow,
         }}
       >
-        <AnimatedLogo size={50} />
+        <AnimatedLogo size={80} />
         <Typography
           variant="h5"
           fontWeight={800}
@@ -107,10 +107,14 @@ export const SelectRolePage = () => {
             sx={{
               display: 'grid',
               gridTemplateColumns: {
-                xs: 'repeat(2, 1fr)',
-                md: 'repeat(4, 1fr)',
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)',
               },
-              gap: 2,
+              gap: 3,
+              width: '100%',
+              maxWidth: 900,
+              mx: 'auto',
             }}
           >
             {AVAILABLE_ROLES.map(role => {
@@ -127,23 +131,27 @@ export const SelectRolePage = () => {
                   sx={{
                     p: { xs: 2, sm: 3 },
                     cursor: loading ? 'not-allowed' : 'pointer',
-                    borderRadius: 1,
-                    border: '1px solid',
+                    borderRadius: 2,
+                    border: '2px solid',
                     borderColor: isSelected
                       ? roleColors.color
-                      : 'rgba(255,255,255,0.1)',
+                      : theme.custom.card.border,
                     background: isSelected
                       ? `linear-gradient(135deg, ${roleColors.color}22 0%, ${roleColors.color}0a 100%)`
-                      : 'rgba(255,255,255,0.04)',
+                      : theme.custom.card.background,
+                    backgroundImage: isSelected ? undefined : 'none',
                     backdropFilter: 'blur(10px)',
                     WebkitBackdropFilter: 'blur(10px)',
                     boxShadow: isSelected
-                      ? `0 0 20px ${roleColors.color}33, inset 0 1px 0 rgba(255,255,255,0.1)`
-                      : '0 2px 12px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.06)',
+                      ? `0 0 20px ${roleColors.color}33, inset 0 1px 0 ${theme.custom.card.border}`
+                      : theme.custom.card.shadow,
                     transition: 'all 0.25s ease',
                     display: 'flex',
                     flexDirection: 'column',
                     minHeight: { xs: 180, sm: 220 },
+                    width: '100%',
+                    maxWidth: 340,
+                    mx: 'auto',
                     '&:hover': loading
                       ? {}
                       : {
@@ -171,11 +179,11 @@ export const SelectRolePage = () => {
                         borderRadius: 1,
                         background: isSelected
                           ? roleColors.color
-                          : 'rgba(255,255,255,0.08)',
+                          : theme.custom.card.background,
                         border: '1px solid',
                         borderColor: isSelected
                           ? roleColors.color
-                          : 'rgba(255,255,255,0.12)',
+                          : theme.custom.card.border,
                         color: isSelected ? '#fff' : roleColors.color,
                         display: 'flex',
                         alignItems: 'center',
@@ -209,21 +217,6 @@ export const SelectRolePage = () => {
                         {role.description}
                       </Typography>
                     </Box>
-
-                    {isSelected && (
-                      <Chip
-                        label="Seleccionado"
-                        size="small"
-                        sx={{
-                          bgcolor: roleColors.color,
-                          color: '#fff',
-                          fontWeight: 600,
-                          height: 20,
-                          fontSize: '0.65rem',
-                          mt: 'auto',
-                        }}
-                      />
-                    )}
                   </Box>
                 </Box>
               );

@@ -100,6 +100,14 @@ export const lightTheme = createTheme({
 // Aplicar colores personalizados al tema light
 export const lightThemeExtended = createTheme(lightTheme, {
   custom: {
+    menu: {
+      background: '#ffffff',
+      backgroundImage: 'none',
+      text: 'rgba(0,0,0,0.87)',
+      border: 'rgba(0,0,0,0.12)',
+      divider: 'rgba(0,0,0,0.1)',
+      shadow: '0 2px 8px rgba(0,0,0,0.08)',
+    },
     input: {
       background: '#fff',
       border: 'rgba(0, 0, 0, 0.23)',
@@ -111,10 +119,10 @@ export const lightThemeExtended = createTheme(lightTheme, {
       iconColorError: '#fc0000',
     },
     card: {
-      background: '#fff',
-      border: 'rgba(0, 0, 0, 0.08)',
-      shadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-      shadowHover: '0 8px 24px rgba(0, 0, 0, 0.12)',
+      background: '#e8e8e8',
+      border: 'rgba(0, 0, 0, 0.06)',
+      shadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
+      shadowHover: '0 8px 24px rgba(0, 0, 0, 0.10)',
     },
     loading: {
       color: '#09069e',
@@ -153,9 +161,88 @@ export const lightThemeExtended = createTheme(lightTheme, {
       confirmShadow: '0 4px 16px rgba(37,99,235,0.35)',
       roles: {
         player: { color: '#2563eb', bg: '#eff6ff' },
-        owner: { color: '#16a34a', bg: '#f0fdf4' },
         manager: { color: '#d97706', bg: '#fffbeb' },
         referee: { color: '#7c3aed', bg: '#f5f3ff' },
+      },
+    },
+    layout: {
+      topBar: {
+        background: 'rgba(255, 255, 255, 0.72)',
+        border: 'rgba(0, 0, 0, 0.06)',
+      },
+      dock: {
+        background: 'rgba(255, 255, 255, 0.65)',
+        border: 'rgba(0, 0, 0, 0.08)',
+        shadow: '0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06)',
+        activeBg: 'rgba(0, 137, 123, 0.12)',
+        activeColor: '#00897B',
+        activeDot: '#00897B',
+        activeDotGlow: '0 0 8px rgba(0, 137, 123, 0.6)',
+        hoverBg: 'rgba(0, 0, 0, 0.06)',
+      },
+      tooltip: {
+        background: 'rgba(0, 0, 0, 0.85)',
+        color: '#fff',
+      },
+      popover: {
+        background: 'rgba(255, 255, 255, 0.88)',
+        border: 'rgba(0, 0, 0, 0.08)',
+        shadow: '0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)',
+      },
+      overlay: {
+        background: 'rgba(255, 255, 255, 0.92)',
+      },
+      spotlight: {
+        pillBg: 'rgba(0, 0, 0, 0.04)',
+        pillBorder: 'rgba(0, 0, 0, 0.06)',
+        pillHoverBg: 'rgba(0, 0, 0, 0.06)',
+        pillHoverBorder: 'rgba(0, 0, 0, 0.12)',
+        barBg: 'rgba(255, 255, 255, 0.85)',
+        barBorder: 'rgba(0, 0, 0, 0.1)',
+        barShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+        kbdBg: 'rgba(0, 0, 0, 0.06)',
+        kbdBorder: 'rgba(0, 0, 0, 0.08)',
+      },
+      hoverBg: 'rgba(0, 0, 0, 0.04)',
+      activeBg: 'rgba(0, 0, 0, 0.07)',
+      notification: {
+        badgeBg: '#ef4444',
+        badgeShadow: '0 0 8px rgba(239, 68, 68, 0.4)',
+        unreadBg: 'rgba(25, 118, 210, 0.04)',
+      },
+      logoutHoverBg: 'rgba(220, 38, 38, 0.06)',
+    },
+    cards360: {
+      accent: {
+        light: '#9a7b1a',
+        main: '#7a5c10',
+        dark: '#5c4508',
+        shine: '#b08a20',
+        text: '#7a5c10',
+        muted: 'rgba(92,69,8,0.65)',
+      },
+      bg: {
+        primary: '#e8e8ec',
+        surface: '#f0f0f4',
+        elevated: '#f8f8fb',
+        border: 'rgba(0,0,0,0.45)',
+        gradientEnd: '#d8d8dc',
+      },
+      shadow:
+        '0 2px 8px rgba(0,0,0,0.1), 0 12px 40px rgba(0,0,0,0.12), inset 0 1px 0 rgba(122,92,16,0.12)',
+      innerBorder: 'rgba(0,0,0,0.10)',
+      skeletonBg: 'rgba(0,0,0,0.08)',
+      hexPattern: { opacity: 0.22, strokeWidth: '1.5' },
+      title: { color: '#0a0a0a', shadow: 'none' },
+      headerName: '#5c4508',
+      description: 'rgba(0,0,0,0.5)',
+      statLabel: 'rgba(92,69,8,0.65)',
+      statValue: '#1a1a1a',
+      panelBg: 'rgba(255,255,255,0.5)',
+      logoBg: '#f0f0f4',
+      footer: {
+        line: 'rgba(0,0,0,0.15)',
+        text: 'rgba(0,0,0,0.30)',
       },
     },
   },

@@ -243,14 +243,6 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 - Programar y gestionar partidos
 - Acceso a métricas financieras propias
 
-### Propietario (`owner`)
-
-- Moderar usuarios y contenido
-- Aprobar/rechazar torneos
-- Gestionar reportes
-- Ver métricas de la plataforma
-- Aplicar sanciones (advertencias, baneos)
-
 ### Árbitro (`referee`)
 
 - Dirigir partidos asignados
@@ -313,7 +305,6 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
 {
   _id: string;
   emails: Array<{ address: string; verified: boolean }>;
-  roles: Array<'player' | 'owner' | 'manager' | 'referee' | 'super_admin'>;
   profile: {
     (nombre, apellido, telefono, avatar);
     address: {
@@ -324,8 +315,6 @@ Crea un archivo `settings.json` basado en `settings.example.json`:
   (createdAt, updatedAt, lastLoginAt);
 }
 ```
-
-#### User Metrics (PlayerMetrics, OwnerMetrics, ManagerMetrics)
 
 Estadísticas específicas por rol con métricas de desempeño
 

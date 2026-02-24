@@ -15,12 +15,14 @@
     "@mui/material": "^7.3.8",
     "@react-oauth/google": "^0.13.4",
     "@swc/helpers": "^0.5.17",
+    "cloudinary": "^2.9.0",
     "meteor-node-stubs": "^1.2.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.71.1",
     "react-router-dom": "^7.13.0",
     "react-spinners": "^0.17.0",
+    "zod": "^4.3.6",
     "zustand": "^5.0.11"
   },
   "devDependencies": {
@@ -30,7 +32,6 @@
     "@rspack/core": "^1.7.1",
     "@rspack/plugin-react-refresh": "^1.4.3",
     "@types/meteor": "^2.9.9",
-    "@types/meteor-mdg-validated-method": "^1.2.12",
     "@types/mocha": "^8.2.3",
     "@types/node": "^22.10.6",
     "@types/react": "^18.2.5",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, CircularProgress } from '@mui/material';
 import { useTheme } from '@mui/material';
 
@@ -21,6 +21,16 @@ export const GoogleLogin: React.FC<GoogleLoginProps> = ({
   const isLoading = externalLoading || internalLoading;
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
+
+  // Cargar script de Google Identity solo cuando se monta este componente
+  useEffect(() => {
+    if (document.querySelector('script[src*="accounts.google.com"]')) return;
+    const script = document.createElement('script');
+    script.src = 'https://accounts.google.com/gsi/client';
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   const buttonText =
     variant === 'login' ? 'Continuar con Google' : 'Regístrate con Google';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute, APP_ROUTES } from '../config';
 import { createLazyComponent } from '../performance/lazyLoader';
-import { PublicLayout, BannedLayouts } from '../layouts';
+import { PublicLayout, BannedLayouts, PrivateLayouts } from '../layouts';
 import { SuspenseWrapper } from '../components';
 
 const DesignSystemPage = createLazyComponent(() =>
@@ -33,14 +33,14 @@ const SelectRolePage = createLazyComponent(() =>
   import('../pages/select_role').then(m => ({ default: m.SelectRolePage }))
 );
 
+const TournamentPage = createLazyComponent(() =>
+  import('../pages/tournament').then(m => ({ default: m.TournamentPage }))
+);
+
 export const router = createBrowserRouter([
   {
     // Layout público con rutas anidadas
-    element: (
-      <SuspenseWrapper>
-        <PublicLayout />
-      </SuspenseWrapper>
-    ),
+    element: <PublicLayout />,
     children: [
       {
         path: APP_ROUTES.PUBLIC.DESIGN_SYSTEM,
@@ -102,11 +102,24 @@ export const router = createBrowserRouter([
     path: APP_ROUTES.PRIVATE.DASHBOARD,
     element: (
       <ProtectedRoute>
-        <BannedLayouts>
-          <SuspenseWrapper>
+        <SuspenseWrapper>
+          <PrivateLayouts>
             <DashboardPage />
-          </SuspenseWrapper>
-        </BannedLayouts>
+          </PrivateLayouts>
+        </SuspenseWrapper>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    // Ruta privada - torneos (solo super_admin)
+    path: APP_ROUTES.PRIVATE.TOURNAMENT,
+    element: (
+      <ProtectedRoute>
+        <SuspenseWrapper>
+          <PrivateLayouts>
+            <TournamentPage />
+          </PrivateLayouts>
+        </SuspenseWrapper>
       </ProtectedRoute>
     ),
   },

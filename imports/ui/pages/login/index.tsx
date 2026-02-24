@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Box, Typography, Divider, Link } from '@mui/material';
-import logo from '../../assets/logo.png';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Meteor } from 'meteor/meteor';
@@ -15,6 +14,7 @@ import {
 } from '../../components';
 import { APP_ROUTES } from '../../config';
 
+const LOGO_SRC = '/logo2.webp';
 interface LoginFormData {
   email: string;
   password: string;
@@ -87,7 +87,7 @@ export const LoginPage = () => {
           >
             <Box
               component="img"
-              src={logo}
+              src={LOGO_SRC}
               alt="Liga360"
               sx={{
                 width: { xs: 90, sm: 110 },
@@ -150,7 +150,7 @@ export const LoginPage = () => {
               <Box sx={{ mt: 1, textAlign: 'right' }}>
                 <Link
                   component={RouterLink}
-                  to="/recovery-password"
+                  to={APP_ROUTES.PUBLIC.RECOVERY_PASSWORD}
                   variant="body2"
                   sx={{
                     textDecoration: 'none',
@@ -178,7 +178,7 @@ export const LoginPage = () => {
                 ¿No tienes cuenta?{' '}
                 <Link
                   component={RouterLink}
-                  to="/register"
+                  to={APP_ROUTES.PUBLIC.REGISTER}
                   sx={{
                     textDecoration: 'none',
                     color: 'primary.main',

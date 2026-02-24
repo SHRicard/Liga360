@@ -1,13 +1,14 @@
 export const APP_ROUTES = {
   PUBLIC: {
     LANDING: '/',
-    LOGIN: '/login',
-    REGISTER: '/register',
-    RECOVERY_PASSWORD: '/recovery-password',
-    DESIGN_SYSTEM: '/design-system',
+    LOGIN: '/iniciar-sesion',
+    REGISTER: '/registro',
+    RECOVERY_PASSWORD: '/recuperar-contrasena',
+    DESIGN_SYSTEM: '/sistema-diseno',
   },
   PRIVATE: {
-    DASHBOARD: '/dashboard',
-    SELECT_ROLE: '/select-role',
+    DASHBOARD: '/panel',
+    SELECT_ROLE: '/seleccionar-rol',
+    TOURNAMENT: '/torneos',
   },
 } as const;

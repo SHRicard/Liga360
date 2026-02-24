@@ -1,7 +1,9 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import logo from '../../../assets/logo.png';
+import './animations.css';
+
+const LOGO_SRC = '/logo2.webp';
 
 interface AnimatedLogoProps {
   size?: number;
@@ -9,7 +11,7 @@ interface AnimatedLogoProps {
 }
 
 export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
-  size = 90,
+  size = 125,
   showText = true,
 }) => {
   const theme = useTheme();
@@ -17,125 +19,35 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
 
   const glowColor = isDark ? '255,213,0' : '37,99,235';
   const glowColorAlt = isDark ? '255,160,0' : '99,102,241';
-  const textGradient = isDark
-    ? 'linear-gradient(135deg, #FFD500 0%, #FF8C00 50%, #FFD500 100%)'
-    : 'linear-gradient(135deg, #2563eb 0%, #6366f1 50%, #2563eb 100%)';
 
   return (
     <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 1.5,
-
-        // ── Keyframes globales ──
-        '@keyframes spin-ring': {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' },
-        },
-        '@keyframes spin-ring-reverse': {
-          '0%': { transform: 'rotate(360deg)' },
-          '100%': { transform: 'rotate(0deg)' },
-        },
-        '@keyframes pulse-glow': {
-          '0%, 100%': {
-            boxShadow: `0 0 20px rgba(${glowColor},0.25), 0 0 40px rgba(${glowColor},0.1)`,
-            transform: 'scale(1)',
-          },
-          '50%': {
-            boxShadow: `0 0 30px rgba(${glowColor},0.45), 0 0 60px rgba(${glowColor},0.2), 0 0 90px rgba(${glowColor},0.08)`,
-            transform: 'scale(1.03)',
-          },
-        },
-        '@keyframes float-particle': {
-          '0%, 100%': { opacity: 0.3, transform: 'scale(0.8)' },
-          '50%': { opacity: 1, transform: 'scale(1.2)' },
-        },
-        '@keyframes orbit-1': {
-          '0%': {
-            transform: 'rotate(0deg) translateX(var(--orbit-r)) rotate(0deg)',
-          },
-          '100%': {
-            transform:
-              'rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg)',
-          },
-        },
-        '@keyframes orbit-2': {
-          '0%': {
-            transform:
-              'rotate(120deg) translateX(var(--orbit-r)) rotate(-120deg)',
-          },
-          '100%': {
-            transform:
-              'rotate(480deg) translateX(var(--orbit-r)) rotate(-480deg)',
-          },
-        },
-        '@keyframes orbit-3': {
-          '0%': {
-            transform:
-              'rotate(240deg) translateX(var(--orbit-r)) rotate(-240deg)',
-          },
-          '100%': {
-            transform:
-              'rotate(600deg) translateX(var(--orbit-r)) rotate(-600deg)',
-          },
-        },
-        '@keyframes orbit-4': {
-          '0%': {
-            transform:
-              'rotate(60deg) translateX(var(--orbit-r)) rotate(-60deg)',
-          },
-          '100%': {
-            transform:
-              'rotate(420deg) translateX(var(--orbit-r)) rotate(-420deg)',
-          },
-        },
-        '@keyframes orbit-5': {
-          '0%': {
-            transform:
-              'rotate(180deg) translateX(var(--orbit-r)) rotate(-180deg)',
-          },
-          '100%': {
-            transform:
-              'rotate(540deg) translateX(var(--orbit-r)) rotate(-540deg)',
-          },
-        },
-        '@keyframes orbit-6': {
-          '0%': {
-            transform:
-              'rotate(300deg) translateX(var(--orbit-r)) rotate(-300deg)',
-          },
-          '100%': {
-            transform:
-              'rotate(660deg) translateX(var(--orbit-r)) rotate(-660deg)',
-          },
-        },
-        '@keyframes text-shimmer': {
-          '0%': { backgroundPosition: '-200% center' },
-          '100%': { backgroundPosition: '200% center' },
-        },
-        '@keyframes neon-flicker': {
-          '0%, 100%': { opacity: 1 },
-          '92%': { opacity: 1 },
-          '93%': { opacity: 0.8 },
-          '94%': { opacity: 1 },
-          '96%': { opacity: 0.9 },
-          '97%': { opacity: 1 },
-        },
-      }}
+      sx={
+        {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 1.5,
+          // CSS custom properties para pulse-glow (colores dinámicos)
+          '--glow-1': `rgba(${glowColor},0.25)`,
+          '--glow-2': `rgba(${glowColor},0.1)`,
+          '--glow-3': `rgba(${glowColor},0.45)`,
+          '--glow-4': `rgba(${glowColor},0.2)`,
+          '--glow-5': `rgba(${glowColor},0.08)`,
+        } as React.CSSProperties
+      }
     >
       {/* ── Contenedor del logo con anillos y partículas ── */}
       <Box
         sx={
           {
             position: 'relative',
-            width: size + 50,
-            height: size + 50,
+            width: size + 22,
+            height: size + 22,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            '--orbit-r': `${(size + 50) / 2 + 4}px`,
+            '--orbit-r': `${(size + 22) / 2 + 2}px`,
           } as any
         }
       >
@@ -192,8 +104,8 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
         <Box
           sx={{
             position: 'absolute',
-            width: size + 10,
-            height: size + 10,
+            width: size + 4,
+            height: size + 4,
             borderRadius: '50%',
             background: `radial-gradient(circle, rgba(${glowColor},0.15) 0%, transparent 70%)`,
             animation: 'pulse-glow 3s ease-in-out infinite',
@@ -262,7 +174,7 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
         {/* Logo imagen con pulso */}
         <Box
           component="img"
-          src={logo}
+          src={LOGO_SRC}
           alt="Liga360"
           sx={{
             width: size,

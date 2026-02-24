@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Controller, Control, FieldValues, Path } from 'react-hook-form';
 import { TextField, InputAdornment, IconButton, useTheme } from '@mui/material';
-import { Lock, Visibility, VisibilityOff } from '@mui/icons-material';
+import Lock from '@mui/icons-material/Lock';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 interface FieldPasswordProps<T extends FieldValues> {
   name: Path<T>;
